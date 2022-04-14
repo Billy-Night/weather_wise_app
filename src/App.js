@@ -3,15 +3,28 @@ import './App.css';
 
 
 function App() {
+  let [city, setCity] = useState("");
+  let [location, setLocation] = useState({})
+
+  let [lat, setLat] = useState();
+  let [lon, setLon] = useState();
+
+  let [showCity, setShowCity] = useState(false);
 
   let [weather, setWeather] = useState({});
   let [apiLoaded, setApiLoaded] = useState(false);
 
-  let [city, setCity] = useState("");
-  let [showCity, setShowCity] = useState(false);
+  console.log(process.env);
 
+  const geoLocApi = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${process.env.REACT_APP_APIKEY}`;
 
-  let apiCity = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=161b93914792ab2a2ebd537a08bb7915`;  
+console.log(geoLocApi);
+  
+  //The new weather api with geo location
+  const apiWeather = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_APIKEY}`;
+
+  //The old weather api with city
+  // let apiCity = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=161b93914792ab2a2ebd537a08bb7915`;  
 
 
   const handleChange = (event) => {
@@ -20,11 +33,31 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setShowCity(true);
+  };
+
+  const geoLocCall = () => { 
+    //calling the fetch() API
+    fetch(geoLocApi)
+    //passing a handler function into the Promise's then() method. When (and if) the fetch operation succeeds, the promise will call our handler, passing in a response object, which will contains the server's response.
+    //Once you get a response object, you need to call another function to get the response data. In this case we want we want to get the response data as JSON, so we would call the json() method of the Response object.
+    //the feature of promises is that: then() itself returns a promise, which will be completed with the result of the function that was passed to it.
+      .then((response) => response.json())
+      .then((data) => {
+        setLocation(data);
+        setLat(data[0].lat);
+        setLon(data[0].lon);
+        setShowCity(true);
+      });
+      // fetch(apiWeather)
+      // .then((response) => response.json())
+      // .then((data) => {
+      //   setWeather(data);
+      //   setApiLoaded(true);
+      // });
   };
 
   const weatherCall = () => {
-    fetch(apiCity)
+    fetch(apiWeather)
       .then((response) => response.json())
       .then((data) => {
         setWeather(data);
@@ -32,6 +65,7 @@ function App() {
       });
   };
 
+// All sports related information:
 //   const cyclingRating = {
 //     realFeelTemperature: 4,
 //     WindSpeed: 3,
@@ -55,23 +89,24 @@ function App() {
       <h1>Please select your city</h1>
       <form onSubmit={handleSubmit}>
         <input value={city} onChange={handleChange} />
-        <button onClick={weatherCall}>Click</button>
+        <button onClick={geoLocCall}>Click</button>
       </form>
+      <button onClick={weatherCall}>weather call</button>
       {showCity ? (
         <p>City you wrote is: {city}</p>
       ) : (
         <p>Write a city and click the button</p>
       )}
-
       {apiLoaded ? ( 
       <>
-        <p>Location {weather.name} {weather.sys.country}</p>
+        <p>weather is loaded</p>
+        {/* <p>Location {weather.name} {weather.sys.country}</p>
         <p>Tha temperature is {weather.main.temp}</p>
         <p>The weather is {weather.weather[0].description}</p>
         <p>The temperature feels like {weather.main.feels_like}</p>
         <p>The visibility is {weather.visibility}</p>
         <p>The wind speed is {weather.wind.speed} km/h</p>
-        <p>The humidity is {weather.main.humidity}%</p>
+        <p>The humidity is {weather.main.humidity}%</p> */}
       </>
       ) : (
         <h2>Loading weather</h2>
