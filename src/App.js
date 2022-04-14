@@ -4,24 +4,24 @@ import './App.css';
 
 function App() {
   let [city, setCity] = useState("");
-  let [showCity, setShowCity] = useState(false);
-
   let [location, setLocation] = useState({})
-  
+
   let [lat, setLat] = useState();
   let [lon, setLon] = useState();
+
+  let [showCity, setShowCity] = useState(false);
 
   let [weather, setWeather] = useState({});
   let [apiLoaded, setApiLoaded] = useState(false);
 
-  
+  console.log(process.env);
 
-  let geoLocApi = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=4a58b8d3e53b67ec103dcf2e99aaa919`;
+  const geoLocApi = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${process.env.REACT_APP_APIKEY}`;
 
-
+console.log(geoLocApi);
   
   //The new weather api with geo location
-  let apiWeather = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=161b93914792ab2a2ebd537a08bb7915`;
+  const apiWeather = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_APIKEY}`;
 
   //The old weather api with city
   // let apiCity = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=161b93914792ab2a2ebd537a08bb7915`;  
@@ -100,13 +100,13 @@ function App() {
       {apiLoaded ? ( 
       <>
         <p>weather is loaded</p>
-        <p>Location {weather.name} {weather.sys.country}</p>
+        {/* <p>Location {weather.name} {weather.sys.country}</p>
         <p>Tha temperature is {weather.main.temp}</p>
         <p>The weather is {weather.weather[0].description}</p>
         <p>The temperature feels like {weather.main.feels_like}</p>
         <p>The visibility is {weather.visibility}</p>
         <p>The wind speed is {weather.wind.speed} km/h</p>
-        <p>The humidity is {weather.main.humidity}%</p>
+        <p>The humidity is {weather.main.humidity}%</p> */}
       </>
       ) : (
         <h2>Loading weather</h2>
