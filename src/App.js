@@ -5,11 +5,15 @@ let today = new Date();
 let currentHour = today.getHours();
 
 
+const totalTempDif = 20;
+const tempStartValue = 26;
+const realFeelTempStartRate = 3; 
+
 function App() {
 //The states shows the user input recorded by the form
   let [city, setCity] = useState("");
 //This state saves the data from the geolocation API call
-  let [location, setLocation] = useState({})
+  let [location, setLocation] = useState();
 //This state shows when the city has been loaded and can be used to display informtaion to the user.
   let [showCity, setShowCity] = useState(false);
 //These states save the latitude and longitude of the users location
@@ -20,7 +24,11 @@ function App() {
 //This state shows when the weather API is finished
   let [apiLoaded, setApiLoaded] = useState(false);
 
+  // let [currentTemp, setCurrentTemp] = useState();
   // let [currentPop, setCurrentPop] = useState();
+
+  let [cyclingRating, setCyclingRating] = useState();
+
 
 //The API for the geolocation, it relies on the input(city) from the user form.
   const geoLocApi = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${process.env.REACT_APP_APIKEY}`;
@@ -56,32 +64,27 @@ function App() {
           .then((response) => response.json())
           .then((data2) => {
           setWeather(data2);
+          
           setApiLoaded(true);
         });
       });
   };
 
 
-
-// All sports related information:
-//   const cyclingRating = {
-//     realFeelTemperature: 4,
-//     WindSpeed: 3,
-//     Rain: 3,
-//   };
-//   console.log(cyclingRating);
-
-// const totalRating = (el) => {
-//     return el.realFeelTemperature + el.WindSpeed + el.Rain;
-// }
-// console.log(totalRating(cyclingRating))
-
-// const realFeelCycling = () => {
-//   let increaseinTemp = weather.main.feels_like - 26;
-//   return increaseinTemp;
-// }
-// console.log(realFeelCycling);
-
+//Cycling rating logic
+const cyclingRatingfn = () => {
+  //weather.current.feels_like
+  let realFeelCurrentTemp = 36;
+  console.log(realFeelCurrentTemp);
+  let increase = realFeelCurrentTemp - tempStartValue;
+  console.log(increase)
+  let increasePer = (increase/totalTempDif);
+  console.log(increasePer);
+  let reduction = (realFeelTempStartRate * increasePer).toFixed(2);
+  console.log(reduction);
+  let newRate = realFeelTempStartRate - reduction;
+  return newRate;
+}
 
 
   return (
@@ -100,15 +103,14 @@ function App() {
       {apiLoaded ? ( 
       <>
         <p>weather is loaded</p>
+        <p>Location {location[0].name} {location[0].country}</p>
         <p>The possibility of rain is {weather.hourly[currentHour].pop}</p>
-        {/* <p>Location {weather.name} {weather.sys.country}</p>
-        <p>Tha temperature is {weather.main.temp}</p>
-        <p>The weather is {weather.weather[0].description}</p>
-        <p>The temperature feels like {weather.main.feels_like}</p>
-        <p>The visibility is {weather.visibility}</p>
-        <p>The possibility of rain is {weather.pop}</p>
-        <p>The wind speed is {weather.wind.speed} km/h</p>
-        <p>The humidity is {weather.main.humidity}%</p> */}
+        <p>Tha temperature is {weather.current.temp}</p>
+        <p>The weather is {weather.current.weather[0].description}</p>
+        <p>The temperature feels like {weather.current.feels_like}</p>
+        <p>The visibility is {weather.current.visibility}</p>
+        <p>The wind speed is {weather.current.wind_speed} km/h</p>
+        <p>The humidity is {weather.current.humidity}%</p>
       </>
       ) : (
         <h2>Loading weather</h2>
@@ -129,13 +131,20 @@ function App() {
       <br></br>
       <hr></hr>
       <h1>Todays weather rating</h1>
-      <p>The rating is: </p>
       {apiLoaded ? ( 
       <>
+      
+      <button onClick={() => setCyclingRating(cyclingRatingfn)}>Get your Rating</button>
+      {cyclingRating >= 0 ? (
+        <p>Todays cycling Rating is {cyclingRating}</p>
+      ) : 
+      (
+        <p>Your rating is loading</p>
+      )}
       <p>The parameters we checked for your day were:</p>
       {/* <p>1. The real feel temperature is:{weather.main.feels_like}</p> */}
       {/* <p>2. The wind speed is: {weather.wind.speed}</p> */}
-      <p>3. The rain is: </p>
+      {/* <p>3. The rain is: </p> */}
       </>
       ) : (
         <h2>Loading weather</h2>
