@@ -1,13 +1,22 @@
 import React, { useState } from "react";
 import './App.css';
 
+//This code finds the current date and hour.
 let today = new Date();
 let currentHour = today.getHours();
 
 
-const totalTempDif = 20;
-const tempStartValue = 26;
-const realFeelTempStartRate = 3; 
+// const tempStartValue = 26;
+// const totalTempDif = 16;
+// const tempStartRate = 3; 
+
+
+// let currentWindSpeed = "";
+// const totalWindDif = 20;
+// const windStartValue = 12;
+// const windStartRate = 3;
+
+
 
 function App() {
 //The states shows the user input recorded by the form
@@ -19,11 +28,14 @@ function App() {
 //These states save the latitude and longitude of the users location
   let [lat, setLat] = useState();
   let [lon, setLon] = useState();
+
+  // let [coordinates, setCord] = useState({lat:"", long:""})
 //This state saves the data from the weather API call
   let [weather, setWeather] = useState({});
 //This state shows when the weather API is finished
   let [apiLoaded, setApiLoaded] = useState(false);
 
+  // let [cycleWeather, setcycleWeather] = useState({currentTemp:"", currentWindSpeed:"", currentPop:"", currentUV:""});
   // let [currentTemp, setCurrentTemp] = useState();
   // let [currentPop, setCurrentPop] = useState();
 
@@ -60,11 +72,9 @@ function App() {
         // fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${data[0].lat}&lon=${data[0].lon}&appid=${process.env.REACT_APP_APIKEY}`)
         //This API will provide the weather forecast
         fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${data[0].lat}&lon=${data[0].lon}&units=metric&appid=${process.env.REACT_APP_APIKEY}`)
-      
           .then((response) => response.json())
           .then((data2) => {
-          setWeather(data2);
-          
+          setWeather(data2); 
           setApiLoaded(true);
         });
       });
@@ -72,20 +82,13 @@ function App() {
 
 
 //Cycling rating logic
-const cyclingRatingfn = () => {
-  //weather.current.feels_like
-  let realFeelCurrentTemp = 36;
-  console.log(realFeelCurrentTemp);
-  let increase = realFeelCurrentTemp - tempStartValue;
-  console.log(increase)
-  let increasePer = (increase/totalTempDif);
-  console.log(increasePer);
-  let reduction = (realFeelTempStartRate * increasePer).toFixed(2);
-  console.log(reduction);
-  let newRate = realFeelTempStartRate - reduction;
-  return newRate;
+//This is the initial set-up for retrieving the variables from the api using a click from the button
+const cyclingWeatherFn = (currentHour) => {
+   let currentTemp = weather.current.feels_like;
+   let currentWindSpeed = weather.current.wind_speed;
+   let currentPoP = weather.hourly[currentHour].pop;
+   let currentUV = weather.current.uvi;
 }
-
 
   return (
     <div className="App">
@@ -116,6 +119,7 @@ const cyclingRatingfn = () => {
         <h2>Loading weather</h2>
       )}
       <hr></hr>
+      <>
       <h1>Choose your sport</h1>
       <button>Cycling</button>
       <br></br>
@@ -131,24 +135,23 @@ const cyclingRatingfn = () => {
       <br></br>
       <hr></hr>
       <h1>Todays weather rating</h1>
-      {apiLoaded ? ( 
-      <>
+      </>
+      <button onClick={() => cyclingWeatherFn(currentHour)}>Get your Rating</button>
       
-      <button onClick={() => setCyclingRating(cyclingRatingfn)}>Get your Rating</button>
-      {cyclingRating >= 0 ? (
-        <p>Todays cycling Rating is {cyclingRating}</p>
+      {/* {cyclingRating >= 0 ? (
+        <p>Todays cycling Rating is</p>
       ) : 
       (
         <p>Your rating is loading</p>
       )}
       <p>The parameters we checked for your day were:</p>
-      {/* <p>1. The real feel temperature is:{weather.main.feels_like}</p> */}
-      {/* <p>2. The wind speed is: {weather.wind.speed}</p> */}
-      {/* <p>3. The rain is: </p> */}
+      <p>1. The real feel temperature is:{weather.main.feels_like}</p>
+      <p>2. The wind speed is: {weather.wind.speed}</p>
+      <p>3. The rain is: </p>
       </>
       ) : (
         <h2>Loading weather</h2>
-      )}
+      ) */}
     </div>
   );
 }
