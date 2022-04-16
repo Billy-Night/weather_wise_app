@@ -1,21 +1,46 @@
 import React, { useState } from "react";
 import './App.css';
 
+//This code finds the current date and hour.
+let today = new Date();
+let currentHour = today.getHours();
+
+
+// const tempStartValue = 26;
+// const totalTempDif = 16;
+// const tempStartRate = 3; 
+
+
+// let currentWindSpeed = "";
+// const totalWindDif = 20;
+// const windStartValue = 12;
+// const windStartRate = 3;
+
+
 
 function App() {
 //The states shows the user input recorded by the form
   let [city, setCity] = useState("");
 //This state saves the data from the geolocation API call
-  let [location, setLocation] = useState({})
+  let [location, setLocation] = useState();
 //This state shows when the city has been loaded and can be used to display informtaion to the user.
   let [showCity, setShowCity] = useState(false);
 //These states save the latitude and longitude of the users location
   let [lat, setLat] = useState();
   let [lon, setLon] = useState();
+
+  // let [coordinates, setCord] = useState({lat:"", long:""})
 //This state saves the data from the weather API call
   let [weather, setWeather] = useState({});
 //This state shows when the weather API is finished
   let [apiLoaded, setApiLoaded] = useState(false);
+
+  // let [cycleWeather, setcycleWeather] = useState({currentTemp:"", currentWindSpeed:"", currentPop:"", currentUV:""});
+  // let [currentTemp, setCurrentTemp] = useState();
+  // let [currentPop, setCurrentPop] = useState();
+
+  let [cyclingRating, setCyclingRating] = useState();
+
 
 //The API for the geolocation, it relies on the input(city) from the user form.
   const geoLocApi = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${process.env.REACT_APP_APIKEY}`;
@@ -43,34 +68,27 @@ function App() {
         setLat(data[0].lat);
         setLon(data[0].lon);
         setShowCity(true);
-        //run the second API once the first has complete
-          fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${data[0].lat}&lon=${data[0].lon}&appid=${process.env.REACT_APP_APIKEY}`)
+        //This API will provide the current weather
+        // fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${data[0].lat}&lon=${data[0].lon}&appid=${process.env.REACT_APP_APIKEY}`)
+        //This API will provide the weather forecast
+        fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${data[0].lat}&lon=${data[0].lon}&units=metric&appid=${process.env.REACT_APP_APIKEY}`)
           .then((response) => response.json())
           .then((data2) => {
-          setWeather(data2);
+          setWeather(data2); 
           setApiLoaded(true);
         });
       });
   };
 
-// All sports related information:
-//   const cyclingRating = {
-//     realFeelTemperature: 4,
-//     WindSpeed: 3,
-//     Rain: 3,
-//   };
-//   console.log(cyclingRating);
 
-// const totalRating = (el) => {
-//     return el.realFeelTemperature + el.WindSpeed + el.Rain;
-// }
-// console.log(totalRating(cyclingRating))
-
-// const realFeelCycling = () => {
-//   let increaseinTemp = weather.main.feels_like - 26;
-//   return increaseinTemp;
-// }
-// console.log(realFeelCycling);
+//Cycling rating logic
+//This is the initial set-up for retrieving the variables from the api using a click from the button
+const cyclingWeatherFn = (currentHour) => {
+   let currentTemp = weather.current.feels_like;
+   let currentWindSpeed = weather.current.wind_speed;
+   let currentPoP = weather.hourly[currentHour].pop;
+   let currentUV = weather.current.uvi;
+}
 
   return (
     <div className="App">
@@ -84,21 +102,24 @@ function App() {
       ) : (
         <p>Write a city and click the button</p>
       )}
+      <hr></hr>
       {apiLoaded ? ( 
       <>
         <p>weather is loaded</p>
-        <p>Location {weather.name} {weather.sys.country}</p>
-        <p>Tha temperature is {weather.main.temp}</p>
-        <p>The weather is {weather.weather[0].description}</p>
-        <p>The temperature feels like {weather.main.feels_like}</p>
-        <p>The visibility is {weather.visibility}</p>
-        <p>The wind speed is {weather.wind.speed} km/h</p>
-        <p>The humidity is {weather.main.humidity}%</p>
+        <p>Location {location[0].name} {location[0].country}</p>
+        <p>The possibility of rain is {weather.hourly[currentHour].pop}</p>
+        <p>Tha temperature is {weather.current.temp}</p>
+        <p>The weather is {weather.current.weather[0].description}</p>
+        <p>The temperature feels like {weather.current.feels_like}</p>
+        <p>The visibility is {weather.current.visibility}</p>
+        <p>The wind speed is {weather.current.wind_speed} km/h</p>
+        <p>The humidity is {weather.current.humidity}%</p>
       </>
       ) : (
         <h2>Loading weather</h2>
       )}
-
+      <hr></hr>
+      <>
       <h1>Choose your sport</h1>
       <button>Cycling</button>
       <br></br>
@@ -112,6 +133,25 @@ function App() {
       <br></br>
       <button>Snowboarding</button>
       <br></br>
+      <hr></hr>
+      <h1>Todays weather rating</h1>
+      </>
+      <button onClick={() => cyclingWeatherFn(currentHour)}>Get your Rating</button>
+      
+      {/* {cyclingRating >= 0 ? (
+        <p>Todays cycling Rating is</p>
+      ) : 
+      (
+        <p>Your rating is loading</p>
+      )}
+      <p>The parameters we checked for your day were:</p>
+      <p>1. The real feel temperature is:{weather.main.feels_like}</p>
+      <p>2. The wind speed is: {weather.wind.speed}</p>
+      <p>3. The rain is: </p>
+      </>
+      ) : (
+        <h2>Loading weather</h2>
+      ) */}
     </div>
   );
 }
