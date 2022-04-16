@@ -24,8 +24,8 @@ const totalWindDif = 20;
 const windStartValue = 12;
 const windStartRate = 3;
 
-let windFinRate = master(currentWindSpeed, windStartValue, totalWindDif, windStartRate);
-console.log(`The wind rating is ${windFinRate}`);
+let windFinRate = currentWindSpeed > windStartValue ? master(currentWindSpeed, windStartValue, totalWindDif, windStartRate) : tempStartRate;
+  console.log(`The wind rating is ${windFinRate}`);
 
 //Probability of Rain
 //The range is between 0 - 70
