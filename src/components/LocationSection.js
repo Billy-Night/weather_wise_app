@@ -1,5 +1,4 @@
 const LocationSection = (props) => (
-    
     <div className="search">
         <h1>Weather Wise</h1>
         <p>Please select your city</p>

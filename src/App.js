@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import LocationSection from "./components/LocationSection.js";
+import NavBar from "./components/NavBar.jsx";
+import About from "./components/About.jsx";
 
 
 //This finds the current date and hour.
@@ -152,15 +154,20 @@ const cyclingWeatherFn = (tempStartValue, totalTempDif, tempStartRate, windStart
 
   return (
       <div className="App">
-      <nav>
+        <NavBar Link={Link}/>
+      {/* <nav>
         <ul>
           <li>
             <Link to="/LocationSection">Home</Link>
           </li>
+          <li>
+            <Link to="/About">About</Link>
+          </li>
         </ul>
-      </nav>
+      </nav> */}
       <Routes>
           <Route path="/LocationSection" element={<LocationSection handleSubmit={handleSubmit} city={city} handleChange={handleChange} handleClick={handleClick} showCity={showCity} />} />
+          <Route path="/About" element={<About/>} />
       </Routes>
       
       <hr></hr>
