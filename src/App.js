@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import './App.css';
+import LocationSection from "./components/LocationSection.js";
 
 //This finds the current date and hour.
 let today = new Date();
@@ -27,6 +28,7 @@ const uvStartRate = 1;
 
 
 function App() {
+
 //The states shows the user input recorded by the form
   let [city, setCity] = useState("");
 //This state saves the data from the geolocation API call
@@ -51,13 +53,18 @@ function App() {
 
 //This handles the event change in the form for the city
   const handleChange = (event) => {
-    setCity(event.currentTarget.value); 
+    setCity(event.currentTarget.value);
   }
 
 //This handles the submit of the form it will stop the page from reloading
   const handleSubmit = (event) => {
     event.preventDefault();
   };
+
+  const handleClick = () => {
+//    console.log("clicked!");
+   geoLocCall();
+};
 
 //The function below will call the first API which has been saved in a variable with the city input.
   const geoLocCall = () => { 
@@ -142,33 +149,13 @@ const cyclingWeatherFn = (tempStartValue, totalTempDif, tempStartRate, windStart
 
   return (
     <div className="App">
-      <h1>Please select your city</h1>
-      <form onSubmit={handleSubmit}>
-        <input value={city} onChange={handleChange} />
-        <button onClick={geoLocCall}>Click</button>
-      </form>
+      <LocationSection handleSubmit={handleSubmit} value={city} handleChange={handleChange} handleClick={handleClick}/>
       {showCity ? (
         <p>City you wrote is: {city}</p>
       ) : (
         <p>Write a city and click the button</p>
       )}
-      <hr></hr>
-      {apiLoaded ? ( 
-      <>
-        <p>weather is loaded</p>
-        <p>Location {location[0].name} {location[0].country}</p>
-        <p>The possibility of rain is {weather.hourly[currentHour].pop}%</p>
-        <p>Tha temperature is {weather.current.temp}</p>
-        <p>The weather is {weather.current.weather[0].description}</p>
-        <p>The temperature feels like {weather.current.feels_like}</p>
-        <p>The visibility is {weather.current.visibility}m</p>
-        <p>The wind speed is {weather.current.wind_speed} km/h</p>
-        <p>The humidity is {weather.current.humidity}%</p>
-        <p>The UV Index is: {weather.current.uvi}</p>
-      </>
-      ) : (
-        <h2>Loading weather</h2>
-      )}
+
       <hr></hr>
       <>
         <h1>Choose your sport</h1>
@@ -203,6 +190,27 @@ const cyclingWeatherFn = (tempStartValue, totalTempDif, tempStartRate, windStart
         <p>Your rating is loading</p>
       </>
       )}
+
+<hr></hr>
+      <>
+      {apiLoaded ? ( 
+      <>
+      <h1>Todays weather</h1>
+        <p>weather is loaded</p>
+        <p>Location {location[0].name} {location[0].country}</p>
+        <p>The possibility of rain is {weather.hourly[currentHour].pop}%</p>
+        <p>Tha temperature is {weather.current.temp}</p>
+        <p>The weather is {weather.current.weather[0].description}</p>
+        <p>The temperature feels like {weather.current.feels_like}</p>
+        <p>The visibility is {weather.current.visibility}m</p>
+        <p>The wind speed is {weather.current.wind_speed} km/h</p>
+        <p>The humidity is {weather.current.humidity}%</p>
+        <p>The UV Index is: {weather.current.uvi}</p>
+      </>
+      ) : (
+        <h2>Loading weather</h2>
+      )}
+      </>
     </div>
   );
 }
