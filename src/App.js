@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import LocationSection from "./components/LocationSection.js";
+
 
 //This finds the current date and hour.
 let today = new Date();
@@ -29,6 +31,7 @@ const uvStartRate = 1;
 
 function App() {
 
+  let [section, setSection] = useState("");
 //The states shows the user input recorded by the form
   let [city, setCity] = useState("");
 //This state saves the data from the geolocation API call
@@ -148,14 +151,18 @@ const cyclingWeatherFn = (tempStartValue, totalTempDif, tempStartRate, windStart
 }
 
   return (
-    <div className="App">
-      <LocationSection handleSubmit={handleSubmit} value={city} handleChange={handleChange} handleClick={handleClick}/>
-      {showCity ? (
-        <p>City you wrote is: {city}</p>
-      ) : (
-        <p>Write a city and click the button</p>
-      )}
-
+      <div className="App">
+      <nav>
+        <ul>
+          <li>
+            <Link to="/LocationSection">Home</Link>
+          </li>
+        </ul>
+      </nav>
+      <Routes>
+          <Route path="/LocationSection" element={<LocationSection handleSubmit={handleSubmit} city={city} handleChange={handleChange} handleClick={handleClick} showCity={showCity} />} />
+      </Routes>
+      
       <hr></hr>
       <>
         <h1>Choose your sport</h1>
@@ -174,7 +181,9 @@ const cyclingWeatherFn = (tempStartValue, totalTempDif, tempStartRate, windStart
         <hr></hr>
         <h1>Todays weather rating</h1>
       </>
-      <button onClick={() => cyclingWeatherFn(tempStartValue, totalTempDif, tempStartRate, windStartValue, totalWindDif, windStartRate, popStartValue, totalPopDif, popStartRate, currentHour, uvStartValue, totalUvDif, uvStartRate)}>Get your Rating</button>
+      <>
+        <button onClick={() => cyclingWeatherFn(tempStartValue, totalTempDif, tempStartRate, windStartValue, totalWindDif, windStartRate, popStartValue, totalPopDif, popStartRate, currentHour, uvStartValue, totalUvDif, uvStartRate)}>Get your Rating</button>
+      </>
       {cyclingRating >= 0 ? (
       <>
         <p>Todays cycling Rating is: 10/{cyclingRating}</p>
@@ -191,7 +200,7 @@ const cyclingWeatherFn = (tempStartValue, totalTempDif, tempStartRate, windStart
       </>
       )}
 
-<hr></hr>
+      <hr></hr>
       <>
       {apiLoaded ? ( 
       <>
@@ -216,3 +225,7 @@ const cyclingWeatherFn = (tempStartValue, totalTempDif, tempStartRate, windStart
 }
 
 export default App;
+
+
+//The code below was used to render the LocationSection Component and pass down props, it has now been replaced with the routes.
+//<LocationSection handleSubmit={handleSubmit} city={city} handleChange={handleChange} handleClick={handleClick} showCity={showCity}/>

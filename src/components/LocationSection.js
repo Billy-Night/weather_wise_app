@@ -7,6 +7,11 @@ const LocationSection = (props) => (
             <input value={props.city} onChange={props.handleChange}placeholder="Location" />
             <button onClick={props.handleClick}>Click</button>
         </form>
+        {props.showCity ? (
+        <p>City you wrote is: {props.city}</p>
+      ) : (
+        <p>Write a city and click the button</p>
+      )}
     </div>
 );
 
