@@ -13,6 +13,12 @@ const NavBar = () => (
           <li>
             <Link to="/sport">Sport</Link>
           </li>
+          <li>
+            <Link to="/rating">Rating</Link>
+          </li>
+          <li>
+            <Link to="/current-weather">Current Weather</Link>
+          </li>
         </ul>
       </nav>
     </div>
