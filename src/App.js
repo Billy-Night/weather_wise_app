@@ -108,9 +108,10 @@ function App() {
 
 
 //Cycling rating logic
-const handlClickCycle = () => (
-  cyclingWeatherFn(tempStartValue, totalTempDif, tempStartRate, windStartValue, totalWindDif, windStartRate, popStartValue, totalPopDif, popStartRate, currentHour, uvStartValue, totalUvDif, uvStartRate)
-);
+const handlClickCycle = () => {
+  cyclingWeatherFn(tempStartValue, totalTempDif, tempStartRate, windStartValue, totalWindDif, windStartRate, popStartValue, totalPopDif, popStartRate, currentHour, uvStartValue, totalUvDif, uvStartRate);
+  navigate('/rating');
+};
 
 //The first function is the master which controls the percentage rating system set-up it can be used for all the weather parameters passed in
 const master = (currentWeather, rangeStart, totalDif, StartRate) => {
