@@ -154,21 +154,13 @@ const cyclingWeatherFn = (tempStartValue, totalTempDif, tempStartRate, windStart
 
   return (
       <div className="App">
-        <NavBar Link={Link}/>
-      {/* <nav>
-        <ul>
-          <li>
-            <Link to="/LocationSection">Home</Link>
-          </li>
-          <li>
-            <Link to="/About">About</Link>
-          </li>
-        </ul>
-      </nav> */}
-      <Routes>
-          <Route path="/LocationSection" element={<LocationSection handleSubmit={handleSubmit} city={city} handleChange={handleChange} handleClick={handleClick} showCity={showCity} />} />
-          <Route path="/About" element={<About/>} />
-      </Routes>
+        <NavBar />
+        <Routes>
+          <Route path="/" element=
+            {<LocationSection handleSubmit={handleSubmit} city={city} handleChange={handleChange} handleClick={handleClick} showCity={showCity} />} 
+          />
+          <Route path="/about" element={<About/>} />
+        </Routes>
       
       <hr></hr>
       <>
