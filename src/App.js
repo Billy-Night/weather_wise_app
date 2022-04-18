@@ -1,5 +1,14 @@
 import React, { useState } from "react";
+import { Routes, Route, Link } from 'react-router-dom';
 import './App.css';
+import LocationSection from "./components/LocationSection.js";
+import NavBar from "./components/NavBar.jsx";
+import About from "./components/About.jsx";
+import SelectSport from "./components/SelectSport.jsx";
+import { useNavigate } from 'react-router-dom';
+import CurrentRating from "./components/CurrentRating.jsx";
+import CurrentWeather from "./components/CurrentWeather.jsx";
+
 
 //This finds the current date and hour.
 let today = new Date();
@@ -27,6 +36,8 @@ const uvStartRate = 1;
 
 
 function App() {
+
+  let [section, setSection] = useState("");
 //The states shows the user input recorded by the form
   let [city, setCity] = useState("");
 //This state saves the data from the geolocation API call
@@ -49,15 +60,25 @@ function App() {
 //The API for the geolocation, it relies on the input(city) from the user form.
   const geoLocApi = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${process.env.REACT_APP_APIKEY}`;
 
+  
+  const navigate = useNavigate();
+
+
 //This handles the event change in the form for the city
   const handleChange = (event) => {
-    setCity(event.currentTarget.value); 
+    setCity(event.currentTarget.value);
   }
 
 //This handles the submit of the form it will stop the page from reloading
   const handleSubmit = (event) => {
     event.preventDefault();
   };
+
+  const handleClick = () => {
+//    console.log("clicked!");
+   geoLocCall();
+   navigate('/sport');
+};
 
 //The function below will call the first API which has been saved in a variable with the city input.
   const geoLocCall = () => { 
@@ -84,7 +105,14 @@ function App() {
       });
   };
 
+
+
 //Cycling rating logic
+const handlClickCycle = () => {
+  cyclingWeatherFn(tempStartValue, totalTempDif, tempStartRate, windStartValue, totalWindDif, windStartRate, popStartValue, totalPopDif, popStartRate, currentHour, uvStartValue, totalUvDif, uvStartRate);
+  navigate('/rating');
+};
+
 //The first function is the master which controls the percentage rating system set-up it can be used for all the weather parameters passed in
 const master = (currentWeather, rangeStart, totalDif, StartRate) => {
   let increase = currentWeather - rangeStart;
@@ -141,70 +169,23 @@ const cyclingWeatherFn = (tempStartValue, totalTempDif, tempStartRate, windStart
 }
 
   return (
-    <div className="App">
-      <h1>Please select your city</h1>
-      <form onSubmit={handleSubmit}>
-        <input value={city} onChange={handleChange} />
-        <button onClick={geoLocCall}>Click</button>
-      </form>
-      {showCity ? (
-        <p>City you wrote is: {city}</p>
-      ) : (
-        <p>Write a city and click the button</p>
-      )}
-      <hr></hr>
-      {apiLoaded ? ( 
-      <>
-        <p>weather is loaded</p>
-        <p>Location {location[0].name} {location[0].country}</p>
-        <p>The possibility of rain is {weather.hourly[currentHour].pop}%</p>
-        <p>Tha temperature is {weather.current.temp}</p>
-        <p>The weather is {weather.current.weather[0].description}</p>
-        <p>The temperature feels like {weather.current.feels_like}</p>
-        <p>The visibility is {weather.current.visibility}m</p>
-        <p>The wind speed is {weather.current.wind_speed} km/h</p>
-        <p>The humidity is {weather.current.humidity}%</p>
-        <p>The UV Index is: {weather.current.uvi}</p>
-      </>
-      ) : (
-        <h2>Loading weather</h2>
-      )}
-      <hr></hr>
-      <>
-        <h1>Choose your sport</h1>
-        <button>Cycling</button>
-        <br></br>
-        <button>Surfing</button>
-        <br></br>
-        <button>Sailing</button>
-        <br></br>
-        <button>Hiking</button>
-        <br></br>
-        <button>Running</button>
-        <br></br>
-        <button>Snowboarding</button>
-        <br></br>
-        <hr></hr>
-        <h1>Todays weather rating</h1>
-      </>
-      <button onClick={() => cyclingWeatherFn(tempStartValue, totalTempDif, tempStartRate, windStartValue, totalWindDif, windStartRate, popStartValue, totalPopDif, popStartRate, currentHour, uvStartValue, totalUvDif, uvStartRate)}>Get your Rating</button>
-      {cyclingRating >= 0 ? (
-      <>
-        <p>Todays cycling Rating is: 10/{cyclingRating}</p>
-        <p>The parameters we checked for your day were:</p>
-        <p>1. The real feel temperature is:{weather.current.feels_like}</p>
-        <p>2. The wind speed is: {weather.current.wind_speed}km/h</p>
-        <p>3. The rain is probability: {weather.hourly[currentHour].pop}</p>
-        <p>4. The UV index is: {weather.current.uvi}</p>
-      </>
-      ) : 
-      (
-      <>
-        <p>Your rating is loading</p>
-      </>
-      )}
+      <div className="App">
+        <NavBar />
+        <Routes>
+          <Route path="/" element=
+            {<LocationSection handleSubmit={handleSubmit} city={city} handleChange={handleChange} handleClick={handleClick} showCity={showCity} />} 
+          />
+          <Route path="/about" element={<About/>} />
+          <Route path="/sport" element={<SelectSport handleClickCycle={handlClickCycle}/>} />
+          <Route path="/rating" element={<CurrentRating cyclingRating={cyclingRating} weather={weather} currentHour={currentHour}/>} />
+          <Route path="/current-weather" element={<CurrentWeather apiLoaded={apiLoaded} location={location} currentHour={currentHour} weather={weather}/>} />
+        </Routes>
     </div>
   );
 }
 
 export default App;
+
+
+//The code below was used to render the LocationSection Component and pass down props, it has now been replaced with the routes.
+//<LocationSection handleSubmit={handleSubmit} city={city} handleChange={handleChange} handleClick={handleClick} showCity={showCity}/>
