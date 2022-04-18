@@ -4,6 +4,8 @@ import './App.css';
 import LocationSection from "./components/LocationSection.js";
 import NavBar from "./components/NavBar.jsx";
 import About from "./components/About.jsx";
+import SelectSport from "./components/SelectSport.jsx";
+import { useNavigate } from 'react-router-dom';
 
 
 //This finds the current date and hour.
@@ -56,6 +58,10 @@ function App() {
 //The API for the geolocation, it relies on the input(city) from the user form.
   const geoLocApi = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${process.env.REACT_APP_APIKEY}`;
 
+  
+  const navigate = useNavigate();
+
+
 //This handles the event change in the form for the city
   const handleChange = (event) => {
     setCity(event.currentTarget.value);
@@ -69,6 +75,7 @@ function App() {
   const handleClick = () => {
 //    console.log("clicked!");
    geoLocCall();
+   navigate('/sport');
 };
 
 //The function below will call the first API which has been saved in a variable with the city input.
@@ -95,6 +102,7 @@ function App() {
         });
       });
   };
+
 
 //Cycling rating logic
 //The first function is the master which controls the percentage rating system set-up it can be used for all the weather parameters passed in
@@ -160,22 +168,10 @@ const cyclingWeatherFn = (tempStartValue, totalTempDif, tempStartRate, windStart
             {<LocationSection handleSubmit={handleSubmit} city={city} handleChange={handleChange} handleClick={handleClick} showCity={showCity} />} 
           />
           <Route path="/about" element={<About/>} />
+          <Route path="/sport" element={<SelectSport />} />
         </Routes>
-      
       <hr></hr>
       <>
-        <h1>Choose your sport</h1>
-        <button>Cycling</button>
-        <br></br>
-        <button>Surfing</button>
-        <br></br>
-        <button>Sailing</button>
-        <br></br>
-        <button>Hiking</button>
-        <br></br>
-        <button>Running</button>
-        <br></br>
-        <button>Snowboarding</button>
         <br></br>
         <hr></hr>
         <h1>Todays weather rating</h1>
