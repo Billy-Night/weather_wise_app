@@ -1,7 +1,11 @@
-const CurrentWeather = (props) => (
+// import { MyContext } from "../context/MyProvider";
+
+// console.log(MyContext);
+
+const CurrentWeather = () => (
     <div className="current-weather">
         <h1>This is the current weather section</h1>
-        <>
+        {/* <>
       {props.apiLoaded ? ( 
       <>
       <h1>Todays weather</h1>
@@ -19,7 +23,7 @@ const CurrentWeather = (props) => (
       ) : (
         <h2>Loading weather</h2>
       )}
-      </>
+      </> */}
     </div>
 );
 
