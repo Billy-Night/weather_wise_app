@@ -8,20 +8,31 @@ const LocationSection = () => {
 
 
   return (
-    <div className="search">
+    <div className="location-section">
+      <div className="location-container">
         <h1>Weather Wise</h1>
         <p>Please select your city</p>
-        <form onSubmit={context.handleSubmit}>
-            <input value={context.city} onChange={context.handleChange}placeholder="Location" />
-            <button onClick={context.handleClick}>Click</button>
-        </form>
+        <div className="searchBox" >
+            <input className="searchInput" value={context.city} onChange={context.handleChange}placeholder="Location" />
+            <button className="searchButton" onClick={context.handleClick}>
+              <i className="material-icons"></i>
+            </button>
+        </div>
+        <>
         {context.showCity ? (
         <p>City you wrote is: {context.city}</p>
-      ) : (
+        ) : (
         <p>Write a city and click the button</p>
-      )}
+        )}
+        </>
+      </div>
     </div>
 );
 };
 
 export default LocationSection;
+
+        //<form onSubmit={context.handleSubmit}>
+        //    <input className="searchBox" value={context.city} onChange={context.handleChange}placeholder="Location" />
+        //    <button onClick={context.handleClick}>Click</button>
+        //</form>
