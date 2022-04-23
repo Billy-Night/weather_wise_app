@@ -158,6 +158,9 @@ const cyclingWeatherFn = (tempStartValue, totalTempDif, tempStartRate, windStart
   setCyclingRating(totalRate);
     // console.log(`The rating is: ${cyclingRating}`)
 }
+const handleNavCurrentWeather = () => (
+    navigate('/current-weather')
+);
 
     return (
         <MyContext.Provider 
@@ -176,6 +179,7 @@ const cyclingWeatherFn = (tempStartValue, totalTempDif, tempStartRate, windStart
             geoLocCall: geoLocCall,
             handlClickCycle: handlClickCycle,
             currentHour: currentHour,
+            handleNavCurrentWeather: handleNavCurrentWeather,
         }} >
         {/* //Todo get explanation for the code below */}
             {props.children }
