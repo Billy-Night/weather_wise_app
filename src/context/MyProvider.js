@@ -3,9 +3,35 @@ import { useNavigate } from 'react-router-dom';
 
 export const MyContext = React.createContext();
 
-const MyProvider = (props) => {
 
-    let [section, setSection] = useState("");
+//This finds the current date and hour.
+let today = new Date();
+let currentHour = today.getHours();
+
+//The real feel temp variables
+const tempStartValue = 26;
+const totalTempDif = 16;
+const tempStartRate = 3; 
+
+//The wind variables
+const totalWindDif = 20;
+const windStartValue = 12;
+const windStartRate = 3;
+
+//The probability of rain variables
+const popStartValue = 0;
+const totalPopDif = 0.7;
+const popStartRate = 3;
+
+//The UV Index variables
+const uvStartValue = 0;
+const totalUvDif = 10;
+const uvStartRate = 1;
+
+const MyProvider = (props) => {
+    //This state is not in use yet
+    // let [section, setSection] = useState("");
+
     //The states shows the user input recorded by the form
     let [city, setCity] = useState("");
     //This state saves the data from the geolocation API call
@@ -72,10 +98,70 @@ const MyProvider = (props) => {
        });
    };
 
+//Cycling rating logic
+const handlClickCycle = () => {
+  cyclingWeatherFn(tempStartValue, totalTempDif, tempStartRate, windStartValue, totalWindDif, windStartRate, popStartValue, totalPopDif, popStartRate, currentHour, uvStartValue, totalUvDif, uvStartRate);
+  navigate('/rating');
+};
+
+//The first function is the master which controls the percentage rating system set-up it can be used for all the weather parameters passed in
+const master = (currentWeather, rangeStart, totalDif, StartRate) => {
+  let increase = currentWeather - rangeStart;
+  console.log(`This is increase from master ${increase}`);
+  let increasePer = increase/totalDif;
+  let reduction = (StartRate * increasePer).toFixed(2);
+  console.log(`reduction: ${reduction}`);
+  console.log(`start rate: ${StartRate}`);
+  let newRate = (StartRate - reduction);
+//   eslint-disable-next-line no-unused-expressions
+  newRate <= 0 ? newRate= -3 : newRate
+  return newRate;
+}
+//The next function manages the variables that will be create from the current weather conditions, this will only run once the button is pressed by the user, it will also pass the variables to the master function and retrieve the results, once it has the results it will calcultate the rating and then store it in the cycling rating state.
+//ToDo this needs some attention and possible re-factoring (fully functioning with no problems).
+const cyclingWeatherFn = (tempStartValue, totalTempDif, tempStartRate, windStartValue, totalWindDif, windStartRate, popStartValue, totalPopDif, popStartRate, currentHour, uvStartValue, totalUvDif, uvStartRate) => {
+    //test value 36  
+  let currentTemp = weather.current.feels_like;
+    //test value 18  
+  let currentWindSpeed = weather.current.wind_speed;
+    //test value 0.2
+  let currentPoP = weather.hourly[currentHour].pop;
+    //test value 4
+  let currentUv = weather.current.uvi;
+    //  console.log(`currentTemp: ${currentTemp}`);
+    //  console.log(`tempStartValue: ${tempStartValue}`);
+    //  console.log(`totalTempDif: ${totalTempDif}`);
+    //  console.log(`tempStartRate: ${tempStartRate}`);
+  let tempFinRate = currentTemp > tempStartValue ? master(currentTemp, tempStartValue, totalTempDif, tempStartRate) : tempStartRate;
+    // console.log(`The temp rating is: ${tempFinRate}`);
+
+    // console.log(`windStartValue ${windStartValue}`);
+    // console.log(`totalWindDif ${totalWindDif}`);
+    // console.log(`windStartRate ${windStartRate}`);
+  let windFinRate = currentWindSpeed > windStartValue ? master(currentWindSpeed, windStartValue, totalWindDif, windStartRate) : tempStartRate;
+    // console.log(`The wind rating is ${windFinRate}`);
+    // console.log(`currentPoP: ${currentPoP}`);
+    // console.log(`popStartValue: ${popStartValue}`);
+    // console.log(`totalPopDif: ${totalPopDif}`);
+    // console.log(`popStartRate: ${popStartRate}`);
+  let popFinRate = currentPoP >= 0.7 ? 0 : master(currentPoP, popStartValue, totalPopDif, popStartRate);
+    // console.log(`The pop rating is ${popFinRate}`);
+    // console.log(`uvStartValue: ${uvStartValue}`);
+    // console.log(`totalUvDif: ${totalUvDif}`);
+    // console.log(`uvStartRate: ${uvStartRate}`);
+  let uvFinRate = master(currentUv, uvStartValue, totalUvDif, uvStartRate);
+    // console.log(`The UV Index rating is ${uvFinRate}`); 
+
+  const totalRate = tempFinRate + windFinRate + popFinRate + uvFinRate;
+    // console.log(`The Rating is: ${totalRate}`);
+
+  setCyclingRating(totalRate);
+    // console.log(`The rating is: ${cyclingRating}`)
+}
+
     return (
         <MyContext.Provider 
         value={{
-            section: section,
             city: city,
             location: location,
             showCity: showCity,
@@ -83,13 +169,17 @@ const MyProvider = (props) => {
             lon: lon,
             weather: weather,
             apiLoaded: apiLoaded,
-            cycling: cyclingRating,
+            cyclingRating: cyclingRating,
             handleChange: handleChange,
             handleSubmit: handleSubmit,
             handleClick: handleClick,
             geoLocCall: geoLocCall,
+            handlClickCycle: handlClickCycle,
+            currentHour: currentHour,
         }} >
+        {/* //Todo get explanation for the code below */}
             {props.children }
+
         </MyContext.Provider >
     )
 };

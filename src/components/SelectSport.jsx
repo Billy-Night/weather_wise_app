@@ -8,7 +8,7 @@ const SelectSport = () => {
 return (
     <div className="select-sport">
         <h1>Choose your sport</h1>
-        <button onClick={context.handleClickCycle} >Cycling</button>
+        <button onClick={context.handlClickCycle} >Cycling</button>
         <br></br>
         <button>Surfing</button>
         <br></br>

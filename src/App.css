@@ -5,11 +5,13 @@
   background: linear-gradient(0deg, rgb(54, 83, 230) 0%, rgba(62,96,214,1) 60%, rgba(44,44,219,1) 100%);
   color: white;
 }
+/* .nav-bar {
 
+} */
 /* .about-section {
 
 } */
 
 .current-rating {
-  color: blue;
+  color: black;
 }
