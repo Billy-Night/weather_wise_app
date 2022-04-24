@@ -6,27 +6,44 @@ const CurrentWeather = () => {
   const context = useContext(MyContext);
 
   return (
-    <div className="current-weather">
-        <h1>This is the current weather section</h1>
-        <>
-      {context.apiLoaded ? ( 
-      <>
-      <h1>Todays weather</h1>
-        <p>weather is loaded</p>
-        <p>Location {context.location[0].name} {context.location[0].country}</p>
-        <p>The possibility of rain is {context.weather.hourly[context.currentHour].pop}%</p>
-        <p>Tha temperature is {context.weather.current.temp}</p>
-        <p>The weather is {context.weather.current.weather[0].description}</p>
-        <p>The temperature feels like {context.weather.current.feels_like}</p>
-        <p>The visibility is {context.weather.current.visibility}m</p>
-        <p>The wind speed is {context.weather.current.wind_speed} km/h</p>
-        <p>The humidity is {context.weather.current.humidity}%</p>
-        <p>The UV Index is: {context.weather.current.uvi}</p>
-      </>
-      ) : (
-        <h2>Loading weather</h2>
-      )}
-      </>
+    <div className="current-weather-main-container">
+        <div className="current-weather-des-container">
+          <div className="current-weather-grid-container">
+          <h1>Current Weather</h1>
+          <>
+            {context.apiLoaded ? ( 
+            <>
+              <div className="current-weather-temp">
+                <p>{context.weather.current.temp}°</p>
+                <p>{context.location[0].name} {context.location[0].country}</p>
+                <p>Feels like temperature {context.weather.current.feels_like}°C</p>
+                <p>{context.day}, {context.currentHour}H</p>
+              </div>
+              <div className='current-weather-icon-des'>
+                <img src={`http://openweathermap.org/img/wn/${context.weather.current.weather[0].icon}.png`} alt={context.weather.current.weather[0].description} />
+                <p>{context.weather.current.weather[0].description}</p>
+              </div>
+{/* Todo below this needs to be done  */}
+                <div className='current-weather-feels-like'>
+
+                </div>
+
+                <p>Possibility of rain {context.weather.hourly[context.currentHour].pop}%</p>
+                <p>Temperature {context.weather.current.temp}°C</p>
+                <p>Weather descripion {context.weather.current.weather[0].description}</p>
+              
+                <p>Visibility {((context.weather.current.visibility)/1000)} km</p>
+                <p>Wind Speed {context.weather.current.wind_speed} km/h</p>
+                <p>Humidity {context.weather.current.humidity}%</p>
+                <p>UV Index {context.weather.current.uvi}</p>
+              
+            </>
+            ) : (
+              <h2>Loading weather</h2>
+            )}
+          </>
+      </div>
+      </div>
     </div>
 );
 }

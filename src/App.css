@@ -38,8 +38,10 @@
 .location-response {
   margin-top: 60%;
 }
-.search h1 {
-  padding: 10px;
+.location-header h1 {
+  padding: 1%;
+  font-size: 4em;
+  margin: 2%;
 }
 .searchBox {
   position: absolute;
@@ -58,7 +60,7 @@
 }
 
 .searchBox:hover > .searchButton {
-background: white;
+background: #b8b81e;
 color : #2f3640;
 }
 
@@ -119,10 +121,7 @@ color : #2f3640;
 
 .sport-buttons {
   margin: 5% 20% 5% 20%;
-  /* display: flex;
-  justify-content: center; */
 }
-
 .sport-btn-container img {
   width: 100px;
   height: 100px;
@@ -132,10 +131,125 @@ color : #2f3640;
   height: 120px;
 }
 
-/* .about-section {
+.rating-main-container {
+  display: flex;
+  justify-content: center;
+}
 
-} */
+.rating-des-container {
+ background-color: #2F3740;
+ color: white;
+ width: 500px;
+ height: 430px;
+ margin-top: 2%;
+ border-radius: 10%;
+}
+.rating-des-container h1 {
+  text-align: center;
+  box-sizing: border-box;
+ }
+.circle-container {
+  display: flex;
+  justify-content: center;
+}
+.rate-circle {
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  padding: 10px;
+  background: #2F3740;
+  border: 3px solid rgb(255, 255, 255);
+  color: white;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.rating-params {
+  margin-left: 10%;
+}
+.rate-btn {
+  display: flex;
+  justify-content: center;
+}
+.rate-btn button {
+  font: 'Bebas Neue', cursive;
+  padding: 0.8em 1.4em;
+  text-transform: uppercase;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+.rate-btn button:hover {
+  background-color: #b8b81e;
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  color: #fff;
+  transform: translateY(-7px);
+}
+.rate-btn button:hover {
+  transform: translateY(-1px);
+}
+.current-weather-main-container {
+  display: flex;
+  justify-content: center;
+}
+.current-weather-des-container {
+  background-color: #2F3740;
+  color: white;
+  width: 500px;
+  height: 440px;
+  margin-top: 2%;
+  border-radius: 10%;
+}
+.current-weather-grid-container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 110px 110px 110px 110px;
+}
+.current-weather-grid-container h1 {
+  grid-column: span 12;
+  text-align: center;
+}
 
-.current-rating {
-  color: black;
+.current-weather-temp {
+  grid-column-start: 2;
+  grid-column-end: 6;
+}
+.current-weather-temp p:nth-child(1) {
+  font-size: 2em;
+  margin: 0px;
+}
+.current-weather-temp p:nth-child(2) {
+  font-size: 0.7em;
+  margin: 0px
+}
+.current-weather-temp p:nth-child(3) {
+  font-size: 0.7em;
+  margin: 8% 0% 0% 0%;
+}
+.current-weather-temp p:nth-child(4) {
+  font-size: 0.7em;
+  margin: 0% 0% 0% 0%;
+}
+
+.current-weather-icon-des {
+  grid-column-start: 8;
+  grid-column-end: 12;
+}
+
+
+.current-weather-des {
+  margin-left: 10%;
+}
+.current-weather-feels-like {
+  font-size: 0.6em;
+  margin: 0px;
+}
+.current-weather-feels-like p {
+  margin: 0px;
 }

@@ -9,24 +9,36 @@ const CurrentRating = () => {
 
 
   return (
-  <div className="current-rating">
-    <h1>This is the Rating section</h1>
-      {context.cyclingRating >= 0 ? (
+  <div className="rating-main-container">
+    <div className="rating-des-container">
+      <h1>Current Rating</h1>
+        {context.cyclingRating >= 0 ? (
+          <>
+            <div className="circle-container">
+              <div className="rate-circle">
+                <div>{context.cyclingRating}/10</div>
+              </div>
+            </div>
+            <div className="rating-params">
+              <p>The parameters we checked for your day were:</p>
+              <p>1. The real feel temperature is: {context.weather.current.feels_like}°C</p>
+              <p>2. The wind speed is:  {context.weather.current.wind_speed}km/h</p>
+              <p>3. The rain probability:  {context.weather.hourly[context.currentHour].pop}%</p>
+              <p>4. The UV index is:  {context.weather.current.uvi}</p>
+            </div>
+            <div className="rate-btn">
+                <button onClick={context.handleNavCurrentWeather}>Check Weather</
+            button>
+              
+            </div>
+        </>
+        ) : 
+        (
         <>
-          <p>Todays cycling Rating is: {context.cyclingRating}/10</p>
-          <p>The parameters we checked for your day were:</p>
-          <p>1. The real feel temperature is:{context.weather.current.feels_like}</p>
-          <p>2. The wind speed is: {context.weather.current.wind_speed}km/h</p>
-          <p>3. The rain is probability: {context.weather.hourly[context.currentHour].pop}</p>
-          <p>4. The UV index is: {context.weather.current.uvi}</p>
-          <button onClick={context.handleNavCurrentWeather}>Todays Weather</button>
-       </>
-       ) : 
-       (
-       <>
-         <p>Your rating is loading</p>
-       </>
-       )}
+          <p>Your rating is loading</p>
+        </>
+        )}
+      </div>
   </div>
   );
 }

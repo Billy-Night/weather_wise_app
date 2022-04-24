@@ -13,6 +13,12 @@ export const MyContext = React.createContext();
 let today = new Date();
 let currentHour = today.getHours();
 
+//More date information for the user.
+const weekday = ["Sun","Mon","Tues","Wed","Thurs","Fri","Sat"];
+
+const d = new Date();
+let day = weekday[d.getDay()];
+
 //The real feel temp variables
 const tempStartValue = 26;
 const totalTempDif = 16;
@@ -188,6 +194,7 @@ const handleNavCurrentWeather = () => (
             cyclingImg: cyclingImg,
             runningImg: runningImg,
             testProfileF: testProfileF,
+            day: day,
         }} >
         {/* //Todo get explanation for the code below */}
             {props.children }
