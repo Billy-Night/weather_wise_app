@@ -15,12 +15,12 @@
 } */
 
 .nav-bar ul{
+  background-color: #2F3740;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
   color: white;
-  background-color: #0b1667;
   border-bottom: solid white 1px;
   padding: 10px;
   margin: 0px;
@@ -29,20 +29,15 @@
 .nav-bar li a {
   list-style: none;
   text-decoration: none;
-  background-color: none;
   color: white;
 }
 .location-section {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-}
-.location-container {
   text-align: center;
-  color: white;
-  align-items: center;
+  color: white
 }
-
+.location-response {
+  margin-top: 60%;
+}
 .search h1 {
   padding: 10px;
 }
@@ -55,7 +50,6 @@
   height: 40px;
   border-radius: 40px;
   padding: 10px;
-
 }
 
 .searchBox:hover > .searchInput {
@@ -102,19 +96,37 @@ color : #2f3640;
 }
 }
 
-
-.footer p {
+.footer {
   background-color: #0b1667;
   border-top: solid white 1px;
-  margin: 0pX;
+  margin: 0px;
   position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
   color: white;
   text-align: center;
-
+  display: flex;
 }
+.footer p {
+  margin: 0px;
+}
+
+.select-sport {
+  text-align: center;
+  color: white;
+}
+
+.sport-buttons {
+  margin: 5% 20% 5% 20%;
+  display: flex;
+  justify-content: center;
+}
+
+.sports-buttons button {
+  padding: 10p;
+}
+
 /* .about-section {
 
 } */

@@ -2,12 +2,14 @@ import React, { useContext } from "react";
 import { MyContext } from "../context/MyProvider.js";
 
 
+
 const SelectSport = () => {
   const context = useContext(MyContext)
 
 return (
     <div className="select-sport">
-        <h1>Choose your sport</h1>
+      <h1>Choose your sport</h1>
+      <div className="sport-buttons">
         <button onClick={context.handlClickCycle} >Cycling</button>
         <br></br>
         <button>Surfing</button>
@@ -19,6 +21,7 @@ return (
         <button>Running</button>
         <br></br>
         <button>Snowboarding</button>
+      </div>
     </div>
 );
 };

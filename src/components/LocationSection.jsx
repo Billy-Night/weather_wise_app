@@ -1,6 +1,7 @@
 //useContext hook allows for the use of MyContext
 import React, { useContext } from "react";
 import { MyContext } from "../context/MyProvider.js";
+import SearchIcon from '@mui/icons-material/Search';
 
 
 const LocationSection = () => {
@@ -9,30 +10,26 @@ const LocationSection = () => {
 
   return (
     <div className="location-section">
-      <div className="location-container">
+      <div className="location-header">
         <h1>Weather Wise</h1>
-        <p>Please select your city</p>
-        <div className="searchBox" >
-            <input className="searchInput" value={context.city} onChange={context.handleChange}placeholder="Location" />
-            <button className="searchButton" onClick={context.handleClick}>
-              <i className="material-icons"></i>
-            </button>
-        </div>
-        <>
-        {context.showCity ? (
-        <p>City you wrote is: {context.city}</p>
-        ) : (
-        <p>Write a city and click the button</p>
-        )}
-        </>
+        <p>Please enter your location</p>
+      </div>
+      <div className="searchBox">
+        <input className="searchInput" value={context.city} onChange={context.handleChange}placeholder="Location" />
+        <button className="searchButton" onClick={context.handleClick}>
+          <SearchIcon />
+        </button>
       </div>
     </div>
-);
-};
+  );
+  };
 
 export default LocationSection;
 
-        //<form onSubmit={context.handleSubmit}>
-        //    <input className="searchBox" value={context.city} onChange={context.handleChange}placeholder="Location" />
-        //    <button onClick={context.handleClick}>Click</button>
-        //</form>
+//<div className="location-response">
+//{context.showCity ? (
+//<p>City you wrote is: {context.city}</p>
+//) : (
+//<p>Write a city and click the button</p>
+//)}
+//</div>
