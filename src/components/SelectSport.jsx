@@ -7,20 +7,15 @@ const SelectSport = () => {
   const context = useContext(MyContext)
 
 return (
-    <div className="select-sport">
+    <div className="select-sport-header">
       <h1>Choose your sport</h1>
-      <div className="sport-buttons">
-        <button onClick={context.handlClickCycle} >Cycling</button>
-        <br></br>
-        <button>Surfing</button>
-        <br></br>
-        <button>Sailing</button>
-        <br></br>
-        <button>Hiking</button>
-        <br></br>
-        <button>Running</button>
-        <br></br>
-        <button>Snowboarding</button>
+      <div className="sport-btn-container">
+        <img src={context.cyclingImg} alt="cycling" onClick={context.handlClickCycle} />
+        <p>Cycling</p>
+      </div>
+      <div className="sport-btn-container">
+        <img src={context.runningImg} alt="cycling" onClick={context.handlClickCycle} />
+        <p>Running</p>
       </div>
     </div>
 );

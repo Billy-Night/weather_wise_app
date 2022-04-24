@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import cyclingImg from '../assets/cyclingImg.png';
+import runningImg from '../assets/runningImg.png';
+import testProfileF from '../assets/testProfileF.png'
+
+
 
 export const MyContext = React.createContext();
 
@@ -180,6 +185,9 @@ const handleNavCurrentWeather = () => (
             handlClickCycle: handlClickCycle,
             currentHour: currentHour,
             handleNavCurrentWeather: handleNavCurrentWeather,
+            cyclingImg: cyclingImg,
+            runningImg: runningImg,
+            testProfileF: testProfileF,
         }} >
         {/* //Todo get explanation for the code below */}
             {props.children }
