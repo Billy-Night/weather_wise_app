@@ -23,7 +23,7 @@ const CurrentRating = () => {
               <p>The parameters we checked for your day were:</p>
               <p>1. The real feel temperature is: {context.weather.current.feels_like}°C</p>
               <p>2. The wind speed is:  {context.weather.current.wind_speed}km/h</p>
-              <p>3. The rain probability:  {context.weather.hourly[context.currentHour].pop}%</p>
+              <p>3. The rain probability:  {context.weather.hourly[0].pop}%</p>
               <p>4. The UV index is:  {context.weather.current.uvi}</p>
             </div>
             <div className="rate-btn">

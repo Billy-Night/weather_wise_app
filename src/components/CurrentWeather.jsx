@@ -1,3 +1,4 @@
+// import {  } from '@mui/material';
 import React, { useContext } from 'react';
 import { MyContext } from "../context/MyProvider";
 
@@ -24,19 +25,18 @@ const CurrentWeather = () => {
                 <p>{context.weather.current.weather[0].description}</p>
               </div>
 {/* Todo below this needs to be done  */}
-                <div className='current-weather-feels-like'>
-
-                </div>
-
-                <p>Possibility of rain {context.weather.hourly[context.currentHour].pop}%</p>
-                <p>Temperature {context.weather.current.temp}°C</p>
-                <p>Weather descripion {context.weather.current.weather[0].description}</p>
-              
+              <div className='current-weather-pop'>
+                <p>Possibility of rain {context.weather.hourly[0].pop*100}%</p>
+                <>
+                {context.weather.hourly[0].pop <= 0.2 ? <img src={context.sunImg} alt="Sun" /> : <img src={context.rainImg} alt="Rain" />}
+                </>
+              </div>
+              {/* <div className="current-weather-btm">
                 <p>Visibility {((context.weather.current.visibility)/1000)} km</p>
                 <p>Wind Speed {context.weather.current.wind_speed} km/h</p>
                 <p>Humidity {context.weather.current.humidity}%</p>
                 <p>UV Index {context.weather.current.uvi}</p>
-              
+              </div> */}
             </>
             ) : (
               <h2>Loading weather</h2>

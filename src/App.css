@@ -14,7 +14,7 @@
   height: 100%;
 } */
 
-.nav-bar ul{
+.nav-bar ul {
   background-color: #2F3740;
   display: flex;
   flex-direction: row;
@@ -219,6 +219,8 @@ color : #2f3640;
 .current-weather-temp {
   grid-column-start: 2;
   grid-column-end: 6;
+  grid-row-start: 2;
+  grid-row-end: 3;
 }
 .current-weather-temp p:nth-child(1) {
   font-size: 2em;
@@ -240,16 +242,31 @@ color : #2f3640;
 .current-weather-icon-des {
   grid-column-start: 8;
   grid-column-end: 12;
+  grid-row-start: 2;
+  grid-row-end: 3;
 }
-
 
 .current-weather-des {
   margin-left: 10%;
 }
+
 .current-weather-feels-like {
   font-size: 0.6em;
   margin: 0px;
 }
-.current-weather-feels-like p {
+
+.current-weather-pop {
+  grid-column-start: 2;
+  grid-column-end: 11;
+  grid-row-start: 3;
+  grid-row-end: 4;
   margin: 0px;
+}
+.current-weather-pop img {
+  width: 40px;
+  height: 40px;
+}
+.current-weather-btm {
+grid-column-start: 2;
+grid-column-end: 11;
 }

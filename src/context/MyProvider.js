@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import cyclingImg from '../assets/cyclingImg.png';
 import runningImg from '../assets/runningImg.png';
-import testProfileF from '../assets/testProfileF.png'
+import sunImg from '../assets/sunImg.png';
+import rainImg from '../assets/rainImg.png';
 
 
 
@@ -38,6 +39,8 @@ const popStartRate = 3;
 const uvStartValue = 0;
 const totalUvDif = 10;
 const uvStartRate = 1;
+
+
 
 const MyProvider = (props) => {
     //This state is not in use yet
@@ -118,25 +121,28 @@ const handlClickCycle = () => {
 //The first function is the master which controls the percentage rating system set-up it can be used for all the weather parameters passed in
 const master = (currentWeather, rangeStart, totalDif, StartRate) => {
   let increase = currentWeather - rangeStart;
-  console.log(`This is increase from master ${increase}`);
+  // console.log(`This is increase from master ${increase}`);
   let increasePer = increase/totalDif;
-  let reduction = (StartRate * increasePer).toFixed(2);
+  let reduction = (StartRate * increasePer).toFixed(1);
   console.log(`reduction: ${reduction}`);
   console.log(`start rate: ${StartRate}`);
   let newRate = (StartRate - reduction);
 //   eslint-disable-next-line no-unused-expressions
-  newRate <= 0 ? newRate= -3 : newRate
+  (newRate <= 0 ? newRate= -3 : newRate);
+  console.log(newRate);
   return newRate;
+  
 }
 //The next function manages the variables that will be create from the current weather conditions, this will only run once the button is pressed by the user, it will also pass the variables to the master function and retrieve the results, once it has the results it will calcultate the rating and then store it in the cycling rating state.
 //ToDo this needs some attention and possible re-factoring (fully functioning with no problems).
 const cyclingWeatherFn = (tempStartValue, totalTempDif, tempStartRate, windStartValue, totalWindDif, windStartRate, popStartValue, totalPopDif, popStartRate, currentHour, uvStartValue, totalUvDif, uvStartRate) => {
-    //test value 36  
+    console.log(currentHour);
+  //test value 36  
   let currentTemp = weather.current.feels_like;
     //test value 18  
   let currentWindSpeed = weather.current.wind_speed;
     //test value 0.2
-  let currentPoP = weather.hourly[currentHour].pop;
+  let currentPoP = weather.hourly[0].pop;
     //test value 4
   let currentUv = weather.current.uvi;
     //  console.log(`currentTemp: ${currentTemp}`);
@@ -193,8 +199,9 @@ const handleNavCurrentWeather = () => (
             handleNavCurrentWeather: handleNavCurrentWeather,
             cyclingImg: cyclingImg,
             runningImg: runningImg,
-            testProfileF: testProfileF,
             day: day,
+            sunImg: sunImg,
+            rainImg: rainImg
         }} >
         {/* //Todo get explanation for the code below */}
             {props.children }

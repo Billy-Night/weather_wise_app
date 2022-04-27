@@ -14,7 +14,7 @@ return (
         <p>Cycling</p>
       </div>
       <div className="sport-btn-container">
-        <img src={context.runningImg} alt="cycling" onClick={context.handlClickCycle} />
+        <img src={context.runningImg} alt="running" onClick={context.handlClickCycle} />
         <p>Running</p>
       </div>
     </div>

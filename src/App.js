@@ -21,7 +21,7 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/" element= {<LocationSection />} />
-          <Route path="/about" element={<About/>} />
+          <Route path="/about" element={<About />} />
           <Route path="/sport" element={<SelectSport />} />
           <Route path="/rating" element={<CurrentRating />} />
           <Route path="/current-weather" element={<CurrentWeather />} />
