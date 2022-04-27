@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 const NavBar = () => (
-    <div className="NavBar">
+    <div className="nav-bar">
         <nav>
         <ul>
           <li>
