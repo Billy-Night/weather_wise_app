@@ -25,6 +25,7 @@ const CurrentRating = () => {
               <p>2. The wind speed is:  {context.weather.current.wind_speed}km/h</p>
               <p>3. The rain probability:  {((context.weather.hourly[0].pop)*100)}%</p>
               <p>4. The UV index is:  {context.weather.current.uvi}</p>
+              <p>5. The air quality is: {context.airPollutionDes}</p>
             </div>
             <div className="rate-btn">
                 <button onClick={context.handleNavCurrentWeather}>Check Weather</

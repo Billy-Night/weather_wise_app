@@ -65,10 +65,16 @@ const MyProvider = (props) => {
     let [apiLoaded, setApiLoaded] = useState(false);
     
     //This state updates the rating for cycling
+    //Todo should I put a number here to get it ready for a number?
     let [cyclingRating, setCyclingRating] = useState();
 
-    
-    let [sportSelected, setSportSelected] = useState();
+    //This state updates when the user selects a sport 
+    let [sportSelected, setSportSelected] = useState("");
+
+    //This state will be updated by the API call for air pollution
+    let [airPollution, setAirPollution] = useState({});
+    let [airPollutionDes, setAirPollutionDes] = useState("");
+
 
     //The API for the geolocation, it relies on the input(city) from the user form.
     const geoLocApi = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${process.env.REACT_APP_APIKEY}`;
@@ -113,9 +119,21 @@ const MyProvider = (props) => {
             .then((data2) => {
             setWeather(data2); 
             setApiLoaded(true);
+          fetch(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${data[0].lat}&lon=${data[0].lon}&appid=${process.env.REACT_APP_APIKEY}`)
+              .then((response) => response.json())
+              .then((data3) => {
+              setAirPollution(data3);
+            });
          });
        });
    };
+
+//Air Pollution Quality
+const handleAirPollution = () => {
+const airPollutionDes = ["Good", "Fair", "Moderate", "Poor", "Very Poor"];
+let AirPollutionDes = airPollutionDes[airPollution.list[0].main.aqi];
+setAirPollutionDes(AirPollutionDes);
+}
 
 //Cycling rating logic
 const handlClickCycle = () => {
@@ -131,6 +149,7 @@ const handlClickRunning = () => {
 }
 
 const handleMultiSport = () => {
+  handleAirPollution();
   cyclingWeatherFn(tempStartValue, totalTempDif, tempStartRate, windStartValue, totalWindDif, windStartRate, popStartValue, totalPopDif, popStartRate, currentHour, uvStartValue, totalUvDif, uvStartRate);
 };
 
@@ -162,6 +181,7 @@ const cyclingWeatherFn = (tempStartValue, totalTempDif, tempStartRate, windStart
   let currentPoP = weather.hourly[0].pop;
     //test value 4
   let currentUv = weather.current.uvi;
+  
     //  console.log(`currentTemp: ${currentTemp}`);
     //  console.log(`tempStartValue: ${tempStartValue}`);
     //  console.log(`totalTempDif: ${totalTempDif}`);
@@ -223,7 +243,8 @@ const handleNavCurrentWeather = () => (
             windImg: windImg,
             humidityImg: humidityImg,
             uvindexImg: uvindexImg,
-            sportSelected: sportSelected
+            sportSelected: sportSelected,
+            airPollutionDes: airPollutionDes
         }} >
         {/* //Todo get explanation for the code below */}
             {props.children }
