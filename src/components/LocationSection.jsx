@@ -5,7 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 
 
 const LocationSection = () => {
-  const context = useContext(MyContext)
+  const context = useContext(MyContext);
 
 
   return (
@@ -15,7 +15,7 @@ const LocationSection = () => {
         <p>Please enter your location</p>
       </div>
       <div className="searchBox">
-        <input className="searchInput" value={context.city} onChange={context.handleChange}placeholder="Location" />
+        <input className="searchInput" value={context.city} onChange={context.handleChange} placeholder="Location" />
         <button className="searchButton" onClick={context.handleClick}>
           <SearchIcon />
         </button>
