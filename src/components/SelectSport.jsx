@@ -1,8 +1,6 @@
 import React, { useContext } from "react";
 import { MyContext } from "../context/MyProvider.js";
 
-
-
 const SelectSport = () => {
   const context = useContext(MyContext)
 
@@ -14,7 +12,7 @@ return (
         <p>Cycling</p>
       </div>
       <div className="sport-btn-container">
-        <img src={context.runningImg} alt="running" onClick={context.handlClickCycle} />
+        <img src={context.runningImg} alt="running" onClick={context.handlClickRunning} />
         <p>Running</p>
       </div>
     </div>

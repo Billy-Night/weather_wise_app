@@ -67,6 +67,9 @@ const MyProvider = (props) => {
     //This state updates the rating for cycling
     let [cyclingRating, setCyclingRating] = useState();
 
+    
+    let [sportSelected, setSportSelected] = useState();
+
     //The API for the geolocation, it relies on the input(city) from the user form.
     const geoLocApi = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${process.env.REACT_APP_APIKEY}`;
 
@@ -116,9 +119,21 @@ const MyProvider = (props) => {
 
 //Cycling rating logic
 const handlClickCycle = () => {
-  cyclingWeatherFn(tempStartValue, totalTempDif, tempStartRate, windStartValue, totalWindDif, windStartRate, popStartValue, totalPopDif, popStartRate, currentHour, uvStartValue, totalUvDif, uvStartRate);
+  setSportSelected("cycling");
+  handleMultiSport();
   navigate('/rating');
+}
+
+const handlClickRunning = () => {
+  setSportSelected("running")
+  handleMultiSport();
+  navigate('/rating');
+}
+
+const handleMultiSport = () => {
+  cyclingWeatherFn(tempStartValue, totalTempDif, tempStartRate, windStartValue, totalWindDif, windStartRate, popStartValue, totalPopDif, popStartRate, currentHour, uvStartValue, totalUvDif, uvStartRate);
 };
+
 
 //The first function is the master which controls the percentage rating system set-up it can be used for all the weather parameters passed in
 const master = (currentWeather, rangeStart, totalDif, StartRate) => {
@@ -126,12 +141,12 @@ const master = (currentWeather, rangeStart, totalDif, StartRate) => {
   // console.log(`This is increase from master ${increase}`);
   let increasePer = increase/totalDif;
   let reduction = (StartRate * increasePer).toFixed(1);
-  console.log(`reduction: ${reduction}`);
-  console.log(`start rate: ${StartRate}`);
+  // console.log(`reduction: ${reduction}`);
+  // console.log(`start rate: ${StartRate}`);
   let newRate = (StartRate - reduction);
 //   eslint-disable-next-line no-unused-expressions
   (newRate <= 0 ? newRate= -3 : newRate);
-  console.log(newRate);
+  // console.log(newRate);
   return newRate;
 }
 
@@ -197,6 +212,7 @@ const handleNavCurrentWeather = () => (
             handleClick: handleClick,
             geoLocCall: geoLocCall,
             handlClickCycle: handlClickCycle,
+            handlClickRunning: handlClickRunning,
             currentHour: currentHour,
             handleNavCurrentWeather: handleNavCurrentWeather,
             cyclingImg: cyclingImg,
@@ -206,7 +222,8 @@ const handleNavCurrentWeather = () => (
             rainImg: rainImg,
             windImg: windImg,
             humidityImg: humidityImg,
-            uvindexImg: uvindexImg
+            uvindexImg: uvindexImg,
+            sportSelected: sportSelected
         }} >
         {/* //Todo get explanation for the code below */}
             {props.children }
