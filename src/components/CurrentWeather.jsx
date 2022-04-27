@@ -26,17 +26,31 @@ const CurrentWeather = () => {
               </div>
 {/* Todo below this needs to be done  */}
               <div className='current-weather-pop'>
-                <p>Possibility of rain {context.weather.hourly[0].pop*100}%</p>
+                <p>Possibility of rain</p> 
+                <p>{((context.weather.hourly[0].pop)*100)}%</p>
                 <>
                 {context.weather.hourly[0].pop <= 0.2 ? <img src={context.sunImg} alt="Sun" /> : <img src={context.rainImg} alt="Rain" />}
                 </>
               </div>
-              {/* <div className="current-weather-btm">
-                <p>Visibility {((context.weather.current.visibility)/1000)} km</p>
-                <p>Wind Speed {context.weather.current.wind_speed} km/h</p>
-                <p>Humidity {context.weather.current.humidity}%</p>
-                <p>UV Index {context.weather.current.uvi}</p>
-              </div> */}
+                <div className="current-weather-vis">
+                  <p>Visibility</p>
+                  <p>{((context.weather.current.visibility)/1000)} km</p>
+                </div>
+                <div className="current-weather-wind">
+                  <p>Wind Speed</p>
+                  <p>{context.weather.current.wind_speed} km/h</p>
+                  <img src={context.windImg} alt="wind" />
+                </div>
+                <div className="current-weather-hum">
+                  <p>Humidity</p>
+                  <p>{context.weather.current.humidity}%</p>
+                  <img src={context.humidityImg} alt="humidity" />
+                </div>
+                <div className="current-weather-uvi">
+                  <p>UV Index</p> 
+                  <p>{context.weather.current.uvi}</p>
+                  <img src={context.uvindexImg} alt="UV Index" />
+                </div>
             </>
             ) : (
               <h2>Loading weather</h2>

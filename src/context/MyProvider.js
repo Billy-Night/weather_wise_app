@@ -4,6 +4,9 @@ import cyclingImg from '../assets/cyclingImg.png';
 import runningImg from '../assets/runningImg.png';
 import sunImg from '../assets/sunImg.png';
 import rainImg from '../assets/rainImg.png';
+import windImg from '../assets/windImg.png';
+import humidityImg from '../assets/humidityImg.png';
+import uvindexImg from '../assets/uv-indexImg.png';
 
 
 
@@ -41,7 +44,6 @@ const totalUvDif = 10;
 const uvStartRate = 1;
 
 
-
 const MyProvider = (props) => {
     //This state is not in use yet
     // let [section, setSection] = useState("");
@@ -70,7 +72,7 @@ const MyProvider = (props) => {
 
     const navigate = useNavigate();
 
-    //This handles the event change in the form for the city
+    //This handles the event change in the input for the city
     const handleChange = (event) => {
      setCity(event.currentTarget.value);
      }
@@ -131,8 +133,8 @@ const master = (currentWeather, rangeStart, totalDif, StartRate) => {
   (newRate <= 0 ? newRate= -3 : newRate);
   console.log(newRate);
   return newRate;
-  
 }
+
 //The next function manages the variables that will be create from the current weather conditions, this will only run once the button is pressed by the user, it will also pass the variables to the master function and retrieve the results, once it has the results it will calcultate the rating and then store it in the cycling rating state.
 //ToDo this needs some attention and possible re-factoring (fully functioning with no problems).
 const cyclingWeatherFn = (tempStartValue, totalTempDif, tempStartRate, windStartValue, totalWindDif, windStartRate, popStartValue, totalPopDif, popStartRate, currentHour, uvStartValue, totalUvDif, uvStartRate) => {
@@ -201,7 +203,10 @@ const handleNavCurrentWeather = () => (
             runningImg: runningImg,
             day: day,
             sunImg: sunImg,
-            rainImg: rainImg
+            rainImg: rainImg,
+            windImg: windImg,
+            humidityImg: humidityImg,
+            uvindexImg: uvindexImg
         }} >
         {/* //Todo get explanation for the code below */}
             {props.children }
