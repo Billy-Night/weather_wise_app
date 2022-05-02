@@ -106,11 +106,10 @@ const MyProvider = (props) => {
       });
     };
 
-//todo check that the index matches the correct description
 //Air Pollution Quality
 const handleAirPollution = () => {
-const airPollutionDes = ["Good", "Fair", "Moderate", "Poor", "Very Poor"];
-let AirPollutionDes = airPollutionDes[airPollution.list[0].main.aqi];
+const qualitativeName = ["Good", "Fair", "Moderate", "Poor", "Very Poor"];
+let AirPollutionDes = qualitativeName[(airPollution.list[0].main.aqi)-1];
 setAirPollutionDes(AirPollutionDes);
 }
 
@@ -151,7 +150,7 @@ const master = (currentWeather, rangeStart, totalDif, StartRate) => {
 //The next function manages the variables that will be create from the current weather conditions, this will only run once the button is pressed by the user, it will also pass the variables to the master function and retrieve the results, once it has the results it will calcultate the rating and then store it in the cycling rating state.
 //ToDo this needs some attention and possible re-factoring (fully functioning with no problems).
 const cyclingWeatherFn = (tempStartValue, totalTempDif, tempStartRate, windStartValue, totalWindDif, windStartRate, popStartValue, totalPopDif, popStartRate, currentHour, uvStartValue, totalUvDif, uvStartRate) => {
-    console.log(currentHour);
+  // console.log(currentHour);
   //test value 36  
   let currentTemp = weather.current.feels_like;
     //test value 18  
