@@ -1,64 +1,34 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import cyclingImg from '../assets/cyclingImg.png';
-import runningImg from '../assets/runningImg.png';
 import sunImg from '../assets/sunImg.png';
 import rainImg from '../assets/rainImg.png';
 import windImg from '../assets/windImg.png';
 import humidityImg from '../assets/humidityImg.png';
 import uvindexImg from '../assets/uv-indexImg.png';
 
-
+import { getCityWeather, getWeatherAndPollution } from "../utils/apiCalls";
+import { getCyclingStatus } from "../utils/sportsLogic";
 
 export const MyContext = React.createContext();
-
 
 //This finds the current date and hour.
 let today = new Date();
 let currentHour = today.getHours();
 
-//More date information for the user.
+//Date information for the UI current weather.
 const weekday = ["Sun","Mon","Tues","Wed","Thurs","Fri","Sat"];
 
 const d = new Date();
 let day = weekday[d.getDay()];
 
-//The real feel temp variables
-const tempStartValue = 26;
-const totalTempDif = 16;
-const tempStartRate = 3; 
-
-//The wind variables
-const totalWindDif = 20;
-const windStartValue = 12;
-const windStartRate = 3;
-
-//The probability of rain variables
-const popStartValue = 0;
-const totalPopDif = 0.7;
-const popStartRate = 3;
-
-//The UV Index variables
-const uvStartValue = 0;
-const totalUvDif = 10;
-const uvStartRate = 1;
-
-
 const MyProvider = (props) => {
-    //This state is not in use yet
-    // let [section, setSection] = useState("");
-
     //The states shows the user input recorded by the form
     let [city, setCity] = useState("");
     //This state saves the data from the geolocation API call
     let [location, setLocation] = useState();
     //This state shows when the city has been loaded and can be used to display informtaion to the user.
     let [showCity, setShowCity] = useState(false);
-    //These states save the latitude and longitude of the users location
-    let [lat, setLat] = useState();
-    let [lon, setLon] = useState();
     
-    // let [coordinates, setCord] = useState({lat:"", long:""})
     //This state saves the data from the weather API call
     let [weather, setWeather] = useState({});
     //This state shows when the weather API is finished
@@ -75,146 +45,61 @@ const MyProvider = (props) => {
     let [airPollution, setAirPollution] = useState({});
     let [airPollutionDes, setAirPollutionDes] = useState("");
 
-
-    //The API for the geolocation, it relies on the input(city) from the user form.
-    const geoLocApi = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${process.env.REACT_APP_APIKEY}`;
-
     const navigate = useNavigate();
 
     //This handles the event change in the input for the city
+    //todo change name to something more unique
     const handleChange = (event) => {
      setCity(event.currentTarget.value);
      }
-    
-    //This handles the submit of the form it will stop the page from reloading
-    const handleSubmit = (event) => {
-       event.preventDefault();
-     }
 
+    //This handles the click from the location search
+    //Todo change name to something more unique
     const handleClick = () => {
-    //console.log("clicked!");
         geoLocCall();
         navigate('/sport');
      };
-    
-    //The function below will call the first API which has been saved in a variable with the city input.
-    const geoLocCall = () => { 
-    //calling the fetch() API
-    fetch(geoLocApi)
-    //passing a handler function into the Promise's then() method. When (and if) the fetch operation succeeds, the promise will call our handler, passing in a response object, which will contain the server's response.
-    //Once you get a response object, you need to call another function to get the response data. In this case we want we want to get the response data as JSON, so we would call the json() method of the Response object.
-    //the feature of promises is that: then() itself returns a promise, which will be completed with the result of the function that was passed to it.
-      .then((response) => response.json())
-      .then((data) => {
-         setLocation(data);
-         setLat(data[0].lat);
-         setLon(data[0].lon);
-         setShowCity(true);
-        //This API will provide the current weather(!!NOT IN USE!!!)
-            // fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${data[0].lat}&lon=${data[0].lon}&appid=${process.env.REACT_APP_APIKEY}`)
-        
-        //This API will provide the weather forecast
-         fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${data[0].lat}&lon=${data[0].lon}&units=metric&appid=${process.env.REACT_APP_APIKEY}`)
-            .then((response) => response.json())
-            .then((data2) => {
-            setWeather(data2); 
+
+    //New refactor API from Marc it is working and operational
+    const geoLocCall = () => {
+      getCityWeather(city).then((data) => {
+        setLocation(data);
+        setShowCity(true);
+        getWeatherAndPollution(data[0].lat, data[0].lon).then(
+          ([forecastData, pollutionData]) => {
+            setWeather(forecastData);
+            setAirPollution(pollutionData);
             setApiLoaded(true);
-          fetch(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${data[0].lat}&lon=${data[0].lon}&appid=${process.env.REACT_APP_APIKEY}`)
-              .then((response) => response.json())
-              .then((data3) => {
-              setAirPollution(data3);
-            });
-         });
-       });
-   };
+          }
+        );
+      });
+    };
 
-//Air Pollution Quality
-const handleAirPollution = () => {
-const airPollutionDes = ["Good", "Fair", "Moderate", "Poor", "Very Poor"];
-let AirPollutionDes = airPollutionDes[airPollution.list[0].main.aqi];
-setAirPollutionDes(AirPollutionDes);
-}
+    //Air Pollution Quality
+    const handleAirPollution = () => {
+    const qualitativeName = ["Good", "Fair", "Moderate", "Poor", "Very Poor"];
+    let AirPollutionDes = qualitativeName[(airPollution.list[0].main.aqi)-1];
+    setAirPollutionDes(AirPollutionDes);
+    }
 
-//Cycling rating logic
-const handlClickCycle = () => {
-  setSportSelected("cycling");
-  handleMultiSport();
-  navigate('/rating');
-}
+    //This function handles the click from the sport selected, it will take one parameter which is the sport selected.
+    const handlClickSport = (sport) => {
+      setSportSelected(sport);
+      handleMultiSport();
+      navigate("/rating");
+    }
 
-const handlClickRunning = () => {
-  setSportSelected("running")
-  handleMultiSport();
-  navigate('/rating');
-}
+    //This function handles  
+    const handleMultiSport = () => {
+      handleAirPollution();
+      let totalRate = getCyclingStatus(weather.current.feels_like, weather.current.wind_speed, weather.hourly[0].pop, weather.current.uvi);
+      setCyclingRating(totalRate);
+    }
 
-const handleMultiSport = () => {
-  handleAirPollution();
-  cyclingWeatherFn(tempStartValue, totalTempDif, tempStartRate, windStartValue, totalWindDif, windStartRate, popStartValue, totalPopDif, popStartRate, currentHour, uvStartValue, totalUvDif, uvStartRate);
-};
-
-
-//The first function is the master which controls the percentage rating system set-up it can be used for all the weather parameters passed in
-const master = (currentWeather, rangeStart, totalDif, StartRate) => {
-  let increase = currentWeather - rangeStart;
-  // console.log(`This is increase from master ${increase}`);
-  let increasePer = increase/totalDif;
-  let reduction = (StartRate * increasePer).toFixed(1);
-  // console.log(`reduction: ${reduction}`);
-  // console.log(`start rate: ${StartRate}`);
-  let newRate = (StartRate - reduction);
-//   eslint-disable-next-line no-unused-expressions
-  (newRate <= 0 ? newRate= -3 : newRate);
-  // console.log(newRate);
-  return newRate;
-}
-
-//The next function manages the variables that will be create from the current weather conditions, this will only run once the button is pressed by the user, it will also pass the variables to the master function and retrieve the results, once it has the results it will calcultate the rating and then store it in the cycling rating state.
-//ToDo this needs some attention and possible re-factoring (fully functioning with no problems).
-const cyclingWeatherFn = (tempStartValue, totalTempDif, tempStartRate, windStartValue, totalWindDif, windStartRate, popStartValue, totalPopDif, popStartRate, currentHour, uvStartValue, totalUvDif, uvStartRate) => {
-    console.log(currentHour);
-  //test value 36  
-  let currentTemp = weather.current.feels_like;
-    //test value 18  
-  let currentWindSpeed = weather.current.wind_speed;
-    //test value 0.2
-  let currentPoP = weather.hourly[0].pop;
-    //test value 4
-  let currentUv = weather.current.uvi;
-  
-    //  console.log(`currentTemp: ${currentTemp}`);
-    //  console.log(`tempStartValue: ${tempStartValue}`);
-    //  console.log(`totalTempDif: ${totalTempDif}`);
-    //  console.log(`tempStartRate: ${tempStartRate}`);
-  let tempFinRate = currentTemp > tempStartValue ? master(currentTemp, tempStartValue, totalTempDif, tempStartRate) : tempStartRate;
-    // console.log(`The temp rating is: ${tempFinRate}`);
-
-    // console.log(`windStartValue ${windStartValue}`);
-    // console.log(`totalWindDif ${totalWindDif}`);
-    // console.log(`windStartRate ${windStartRate}`);
-  let windFinRate = currentWindSpeed > windStartValue ? master(currentWindSpeed, windStartValue, totalWindDif, windStartRate) : tempStartRate;
-    // console.log(`The wind rating is ${windFinRate}`);
-    // console.log(`currentPoP: ${currentPoP}`);
-    // console.log(`popStartValue: ${popStartValue}`);
-    // console.log(`totalPopDif: ${totalPopDif}`);
-    // console.log(`popStartRate: ${popStartRate}`);
-  let popFinRate = currentPoP >= 0.7 ? 0 : master(currentPoP, popStartValue, totalPopDif, popStartRate);
-    // console.log(`The pop rating is ${popFinRate}`);
-    // console.log(`uvStartValue: ${uvStartValue}`);
-    // console.log(`totalUvDif: ${totalUvDif}`);
-    // console.log(`uvStartRate: ${uvStartRate}`);
-  let uvFinRate = master(currentUv, uvStartValue, totalUvDif, uvStartRate);
-    // console.log(`The UV Index rating is ${uvFinRate}`); 
-
-  const totalRate = tempFinRate + windFinRate + popFinRate + uvFinRate;
-    // console.log(`The Rating is: ${totalRate}`);
-
-  setCyclingRating(totalRate);
-    // console.log(`The rating is: ${cyclingRating}`)
-}
-const handleNavCurrentWeather = () => (
-    navigate('/current-weather')
-);
+    //This is the method that handles the navigation to the current weather
+    const handleNavCurrentWeather = () => (
+        navigate('/current-weather')
+    );
 
     return (
         <MyContext.Provider 
@@ -222,21 +107,15 @@ const handleNavCurrentWeather = () => (
             city: city,
             location: location,
             showCity: showCity,
-            lat: lat,
-            lon: lon,
             weather: weather,
             apiLoaded: apiLoaded,
             cyclingRating: cyclingRating,
             handleChange: handleChange,
-            handleSubmit: handleSubmit,
             handleClick: handleClick,
             geoLocCall: geoLocCall,
-            handlClickCycle: handlClickCycle,
-            handlClickRunning: handlClickRunning,
+            handlClickSport: handlClickSport,
             currentHour: currentHour,
             handleNavCurrentWeather: handleNavCurrentWeather,
-            cyclingImg: cyclingImg,
-            runningImg: runningImg,
             day: day,
             sunImg: sunImg,
             rainImg: rainImg,
@@ -246,7 +125,6 @@ const handleNavCurrentWeather = () => (
             sportSelected: sportSelected,
             airPollutionDes: airPollutionDes
         }} >
-        {/* //Todo get explanation for the code below */}
             {props.children }
 
         </MyContext.Provider >
