@@ -25,11 +25,3 @@ const LocationSection = () => {
   };
 
 export default LocationSection;
-
-//<div className="location-response">
-//{context.showCity ? (
-//<p>City you wrote is: {context.city}</p>
-//) : (
-//<p>Write a city and click the button</p>
-//)}
-//</div>
