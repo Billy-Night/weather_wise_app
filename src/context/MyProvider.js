@@ -64,7 +64,7 @@ const MyProvider = (props) => {
         navigate('/sport');
      };
 
-    //New refactor API from Marc it is working and operational
+    //API Call
     const geoLocCall = () => {
       getCityLoc(city).then((data) => {
         setLocation(data);
