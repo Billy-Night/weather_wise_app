@@ -31,6 +31,10 @@ const MyProvider = (props) => {
     
     //This state saves the data from the weather API call
     let [weather, setWeather] = useState({});
+
+    //This state converts the wind speed from m/s to km/h
+    let [crtWindSpeed, setCrtWindSpeed] = useState(0);
+
     //This state shows when the weather API is finished
     let [apiLoaded, setApiLoaded] = useState(false);
     
@@ -70,6 +74,7 @@ const MyProvider = (props) => {
             setWeather(forecastData);
             setAirPollution(pollutionData);
             setApiLoaded(true);
+            setCrtWindSpeed((forecastData.current.wind_speed*3.6).toFixed(2))
           }
         );
       });
@@ -92,7 +97,7 @@ const MyProvider = (props) => {
     //This function handles  
     const handleMultiSport = () => {
       handleAirPollution();
-      let totalRate = getCyclingStatus(weather.current.feels_like, weather.current.wind_speed, weather.hourly[0].pop, weather.current.uvi);
+      let totalRate = getCyclingStatus(weather.current.feels_like, crtWindSpeed, weather.hourly[0].pop, weather.current.uvi);
       setCyclingRating(totalRate);
     }
 
@@ -123,7 +128,8 @@ const MyProvider = (props) => {
             humidityImg: humidityImg,
             uvindexImg: uvindexImg,
             sportSelected: sportSelected,
-            airPollutionDes: airPollutionDes
+            airPollutionDes: airPollutionDes,
+            crtWindSpeed: crtWindSpeed
         }} >
             {props.children }
 

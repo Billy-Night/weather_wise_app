@@ -38,7 +38,7 @@ const CurrentWeather = () => {
                 </div>
                 <div className="current-weather-wind">
                   <p>Wind Speed</p>
-                  <p>{context.weather.current.wind_speed} km/h</p>
+                  <p>{context.crtWindSpeed} km/h</p>
                   <img src={context.windImg} alt="wind" />
                 </div>
                 <div className="current-weather-hum">

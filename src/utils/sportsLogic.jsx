@@ -39,7 +39,7 @@ const master = (currentWeather, rangeStart, totalDif, StartRate) => {
     let newRate = (StartRate - reduction);
     //The below 
     // (newRate <= 0 ? newRate= -3 : newRate);
-    console.log(`This is the new rate from Master ${newRate}`);
+    // console.log(`This is the new rate from Master ${newRate}`);
     return newRate;
   }
 
@@ -49,6 +49,7 @@ const master = (currentWeather, rangeStart, totalDif, StartRate) => {
     let currentTemp = weatherFeelsLike;
       //test value 18  
     let currentWindSpeed = weatherWindSpeed;
+    
       //test value 0.2
     let currentPoP = weatherPop;
       //test value 4
@@ -71,7 +72,7 @@ const master = (currentWeather, rangeStart, totalDif, StartRate) => {
       // console.log(`totalPopDif: ${totalPopDif}`);
       // console.log(`popStartRate: ${popStartRate}`);
     let popFinRate = master(currentPoP, popStartValue, totalPopDif, popStartRate);
-      console.log(`The pop rating is ${popFinRate}`);
+      // console.log(`The pop rating is ${popFinRate}`);
       // console.log(`uvStartValue: ${uvStartValue}`);
       // console.log(`totalUvDif: ${totalUvDif}`);
       // console.log(`uvStartRate: ${uvStartRate}`);
