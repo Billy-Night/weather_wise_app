@@ -6,7 +6,7 @@ import windImg from '../assets/windImg.png';
 import humidityImg from '../assets/humidityImg.png';
 import uvindexImg from '../assets/uv-indexImg.png';
 
-import { getCityWeather, getWeatherAndPollution } from "../utils/apiCalls";
+import { getCityLoc, getWeatherAndPollution } from "../utils/apiCalls";
 import { getCyclingStatus } from "../utils/sportsLogic";
 
 export const MyContext = React.createContext();
@@ -25,12 +25,16 @@ const MyProvider = (props) => {
     //The states shows the user input recorded by the form
     let [city, setCity] = useState("");
     //This state saves the data from the geolocation API call
-    let [location, setLocation] = useState();
+    let [location, setLocation] = useState({});
     //This state shows when the city has been loaded and can be used to display informtaion to the user.
     let [showCity, setShowCity] = useState(false);
     
     //This state saves the data from the weather API call
     let [weather, setWeather] = useState({});
+
+    //This state converts the wind speed from m/s to km/h
+    let [crtWindSpeed, setCrtWindSpeed] = useState(0);
+
     //This state shows when the weather API is finished
     let [apiLoaded, setApiLoaded] = useState(false);
     
@@ -60,9 +64,9 @@ const MyProvider = (props) => {
         navigate('/sport');
      };
 
-    //New refactor API from Marc it is working and operational
+    //API Call
     const geoLocCall = () => {
-      getCityWeather(city).then((data) => {
+      getCityLoc(city).then((data) => {
         setLocation(data);
         setShowCity(true);
         getWeatherAndPollution(data[0].lat, data[0].lon).then(
@@ -70,6 +74,7 @@ const MyProvider = (props) => {
             setWeather(forecastData);
             setAirPollution(pollutionData);
             setApiLoaded(true);
+            setCrtWindSpeed((forecastData.current.wind_speed*3.6).toFixed(2))
           }
         );
       });
@@ -92,7 +97,7 @@ const MyProvider = (props) => {
     //This function handles  
     const handleMultiSport = () => {
       handleAirPollution();
-      let totalRate = getCyclingStatus(weather.current.feels_like, weather.current.wind_speed, weather.hourly[0].pop, weather.current.uvi);
+      let totalRate = getCyclingStatus(weather.current.feels_like, crtWindSpeed, weather.hourly[0].pop, weather.current.uvi);
       setCyclingRating(totalRate);
     }
 
@@ -123,7 +128,8 @@ const MyProvider = (props) => {
             humidityImg: humidityImg,
             uvindexImg: uvindexImg,
             sportSelected: sportSelected,
-            airPollutionDes: airPollutionDes
+            airPollutionDes: airPollutionDes,
+            crtWindSpeed: crtWindSpeed
         }} >
             {props.children }
 
