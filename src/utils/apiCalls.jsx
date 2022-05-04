@@ -1,6 +1,6 @@
 const getApiJson = (url) => fetch(url).then((response) => response.json());
 
-export const getCityWeather = (city) => {
+export const getCityLoc = (city) => {
   const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${process.env.REACT_APP_APIKEY}`;
   return fetch(url).then((response) => response.json());
 };

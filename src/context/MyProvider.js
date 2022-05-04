@@ -6,7 +6,7 @@ import windImg from '../assets/windImg.png';
 import humidityImg from '../assets/humidityImg.png';
 import uvindexImg from '../assets/uv-indexImg.png';
 
-import { getCityWeather, getWeatherAndPollution } from "../utils/apiCalls";
+import { getCityLoc, getWeatherAndPollution } from "../utils/apiCalls";
 import { getCyclingStatus } from "../utils/sportsLogic";
 
 export const MyContext = React.createContext();
@@ -25,7 +25,7 @@ const MyProvider = (props) => {
     //The states shows the user input recorded by the form
     let [city, setCity] = useState("");
     //This state saves the data from the geolocation API call
-    let [location, setLocation] = useState();
+    let [location, setLocation] = useState({});
     //This state shows when the city has been loaded and can be used to display informtaion to the user.
     let [showCity, setShowCity] = useState(false);
     
@@ -62,7 +62,7 @@ const MyProvider = (props) => {
 
     //New refactor API from Marc it is working and operational
     const geoLocCall = () => {
-      getCityWeather(city).then((data) => {
+      getCityLoc(city).then((data) => {
         setLocation(data);
         setShowCity(true);
         getWeatherAndPollution(data[0].lat, data[0].lon).then(
