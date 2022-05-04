@@ -17,8 +17,8 @@ function App() {
 
   return (
     <MyProvider>
-      <div className="App">
         <NavBar />
+        <div className="App">
         <Routes>
           <Route path="/" element= {<LocationSection />} />
           <Route path="/about" element={<About />} />

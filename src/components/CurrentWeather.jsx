@@ -24,7 +24,6 @@ const CurrentWeather = () => {
                 <img src={`http://openweathermap.org/img/wn/${context.weather.current.weather[0].icon}.png`} alt={context.weather.current.weather[0].description} />
                 <p>{context.weather.current.weather[0].description}</p>
               </div>
-{/* Todo below this needs to be done  */}
               <div className='current-weather-pop'>
                 <p>Possibility of rain</p> 
                 <p>{((context.weather.hourly[0].pop)*100)}%</p>
