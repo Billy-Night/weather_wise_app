@@ -2,25 +2,12 @@
 import React, { useContext } from "react";
 import { MyContext } from "../context/MyProvider.js";
 
-import ProgressBar from "./ProgressBar/ProgressBar";
+import ProgressBar from "./StatusBar/ProgressBar";
 
 //changed to curly brackets, because there will be a return
 const CurrentRating = () => {
   //the varible is equal to the useContext hook with the argument of MyContext, this will give us our data instead of all the everthing.
   const context = useContext(MyContext);
-
-  // const colorArray = [
-  //   "#7ea9e1",
-  //   "#ed004f",
-  //   "#00fcf0",
-  //   "#d2fc00",
-  //   "#7bff00",
-  //   "#fa6900",
-  // ];
-
-  // const randomColor = () => {
-  //   return colorArray[Math.floor(Math.random() * colorArray.length)];
-  // };
 
   const state = {
     size: 180,
@@ -64,7 +51,8 @@ const CurrentRating = () => {
           </>
         ) : (
           <>
-            <p>Your rating is loading</p>
+            <h3>The rating is not loaded</h3>
+            <p>Please check you have input a location</p>
           </>
         )}
       </div>
