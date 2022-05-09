@@ -30,17 +30,17 @@ const CurrentRating = () => {
             <div className="rate-btn">
                 <button onClick={context.handleNavCurrentWeather}>Check Weather</
             button>
-              
             </div>
-        </>
+          </>
         ) : 
         (
-        <>
-          <p>Your rating is loading</p>
-        </>
+        <div className="crt-rating-load">
+          <h2>The rating is not loaded</h2>
+          <p>Please double check you have added a location in the home section</p>
+        </div>
         )}
       </div>
-  </div>
+    </div>
   );
 }
 
