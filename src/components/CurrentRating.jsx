@@ -9,24 +9,24 @@ const CurrentRating = () => {
   //the varible is equal to the useContext hook with the argument of MyContext, this will give us our data instead of all the everthing.
   const context = useContext(MyContext);
 
-  const colorArray = [
-    "#7ea9e1",
-    "#ed004f",
-    "#00fcf0",
-    "#d2fc00",
-    "#7bff00",
-    "#fa6900",
-  ];
+  // const colorArray = [
+  //   "#7ea9e1",
+  //   "#ed004f",
+  //   "#00fcf0",
+  //   "#d2fc00",
+  //   "#7bff00",
+  //   "#fa6900",
+  // ];
 
-  const randomColor = () => {
-    return colorArray[Math.floor(Math.random() * colorArray.length)];
-  };
+  // const randomColor = () => {
+  //   return colorArray[Math.floor(Math.random() * colorArray.length)];
+  // };
 
   const state = {
-    size: 250,
-    strokeWidth: 15,
-    circleOneStroke: "#d9edfe",
-    circleTwoStroke: randomColor(),
+    size: 180,
+    strokeWidth: 14,
+    circleOneStroke: "green",
+    circleTwoStroke: "gray",
   };
 
   return (
@@ -37,7 +37,7 @@ const CurrentRating = () => {
           <>
             <div className="circle-container">
               <ProgressBar
-                progress={context.cyclingRating.toFixed(2)}
+                progress={Number(context.cyclingRating)}
                 {...state}
               />
             </div>
@@ -48,7 +48,7 @@ const CurrentRating = () => {
                 {context.weather.current.feels_like}°C
               </p>
               <p>
-                2. The wind speed is: {context.weather.current.wind_speed}km/h
+                2. The wind speed is: {context.crtWindSpeed}km/h
               </p>
               <p>
                 3. The rain probability: {context.weather.hourly[0].pop * 100}%

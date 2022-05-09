@@ -15,13 +15,6 @@
     fill: none;
   }
   
-  .percentage {
-    font-size: 1.3rem;
-    text-anchor: middle;
-    fill: #fff;
-    font-weight: bold;
-  }
-  
   input {
     color: rgb(212, 0, 0);
   }
