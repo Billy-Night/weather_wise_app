@@ -52,7 +52,10 @@ const CurrentWeather = () => {
                 </div>
             </>
             ) : (
-              <h2>Loading weather</h2>
+              <div className='crt-weather-load'>
+                <h2>The weather is not loaded</h2>
+                <p>Please check you have added a location in the home.</p>
+              </div>
             )}
           </>
       </div>

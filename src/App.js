@@ -1,6 +1,6 @@
 
 import MyProvider from './context/MyProvider.js';
-import { Routes, Route, } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import LocationSection from "./components/LocationSection.jsx";
 import NavBar from "./components/NavBar.jsx";
