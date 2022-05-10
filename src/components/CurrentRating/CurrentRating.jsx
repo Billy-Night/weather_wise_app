@@ -1,7 +1,8 @@
 //imports the useContext hook from react
-import React, { useContext } from "react";
-import { MyContext } from "../context/MyProvider.js";
-import ProgressBar from "./StatusBar/ProgressBar";
+import React, { useContext, useEffect } from "react";
+import { MyContext } from "../../context/MyProvider.js";
+import ProgressBar from "../StatusBar/ProgressBar";
+import "../CurrentRating/CurrentRating.css";
 
 
 //changed to curly brackets, because there will be a return
@@ -11,28 +12,29 @@ const CurrentRating = () => {
 
   // let circleColor = "green";
 
-
   const state = {
-    size: 180,
-    strokeWidth: 14,
+    size: 150,
+    strokeWidth: 12,
     circleOneStroke: "green",
     circleTwoStroke: "gray",
   };
 
   return (
-    <div className="rating-main-container">
-      <div className="rating-des-container">
-        <h1>{context.sportSelected} Rating</h1>
+    <div className="current-rating-main-container">
+      <div className="current-rating-second-container">
+        <div className="current-rating-grid-container">
+          <div className="current-rating-grid-header">
+            <h1> {context.sportSelected} Rating</h1>
+          </div>
         {context.cyclingRating >= 0 ? (
           <>
             <div className="circle-container">
               <ProgressBar
                 progress={Number(context.cyclingRating)}
-                {...state}
-              />
+                {...state} />
             </div>
             <div className="rating-params">
-              <p>The weather factors are:</p>
+              <h2>The weather factors are:</h2>
               <p>
                 1. Real feel temperature is:{"   "}
                 {context.weather.current.feels_like.toFixed(0)}°C
@@ -53,11 +55,12 @@ const CurrentRating = () => {
             </div>
           </>
         ) : (
-          <>
+          <div className="rating-not-loaded">
             <h3>The rating is not loaded</h3>
             <p>Please check you have input a location</p>
-          </>
+          </div>
         )}
+        </div>
       </div>
     </div>
   );

@@ -10,9 +10,11 @@ const CurrentWeather = () => {
 
   return (
     <div className="current-weather-main-container">
-        <div className="current-weather-des-container">
+        <div className="current-weather-second-container">
           <div className="current-weather-grid-container">
-          <h1>Current Weather</h1>
+            <div className="current-weather-grid-header">
+              <h1>Current Weather</h1>
+            </div>
           <>
             {context.apiLoaded ? ( 
             <>
@@ -55,13 +57,13 @@ const CurrentWeather = () => {
                 </div>
             </>
             ) : (
-              <div className='crt-weather-load'>
-                <h2>The weather is not loaded</h2>
-                <p>Please check you have added a location in the home.</p>
+              <div className='weather-not-loaded'>
+                <h3>The weather is not loaded</h3>
+                <p>Please check you have input a location.</p>
               </div>
             )}
           </>
-      </div>
+        </div>
       </div>
     </div>
 );
