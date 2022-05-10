@@ -1,6 +1,8 @@
 // import {  } from '@mui/material';
 import React, { useContext } from 'react';
-import { MyContext } from "../context/MyProvider";
+import { MyContext } from "../../context/MyProvider";
+import eyeImg from "../../assets/eyeImg.png";
+import "../CurrentWeather/CurrentWeather.css"
 
 
 const CurrentWeather = () => {
@@ -21,7 +23,7 @@ const CurrentWeather = () => {
                 <p>{context.day}, {context.currentHour}H</p>
               </div>
               <div className='current-weather-icon-des'>
-                <img src={`http://openweathermap.org/img/wn/${context.weather.current.weather[0].icon}.png`} alt={context.weather.current.weather[0].description} />
+                <img src={`https://openweathermap.org/img/wn/${context.weather.current.weather[0].icon}.png`} alt={context.weather.current.weather[0].description} />
                 <p>{context.weather.current.weather[0].description}</p>
               </div>
               <div className='current-weather-pop'>
@@ -34,6 +36,7 @@ const CurrentWeather = () => {
                 <div className="current-weather-vis">
                   <p>Visibility</p>
                   <p>{((context.weather.current.visibility)/1000)} km</p>
+                  <img src={eyeImg} alt="visibility" />
                 </div>
                 <div className="current-weather-wind">
                   <p>Wind Speed</p>

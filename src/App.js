@@ -8,7 +8,7 @@ import About from "./components/About.jsx";
 import SelectSport from "./components/SelectSport.jsx";
 // import { useNavigate } from 'react-router-dom';
 import CurrentRating from "./components/CurrentRating.jsx";
-import CurrentWeather from "./components/CurrentWeather.jsx";
+import CurrentWeather from "./components/CurrentWeather/CurrentWeather.jsx";
 // import Footer from "./components/Footer.jsx";
 
 

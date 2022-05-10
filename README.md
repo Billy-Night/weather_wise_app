@@ -1,70 +1,91 @@
-# Getting Started with Create React App
+# Weather Wise
+The weather wise application was designed to give the user the information in a fast and affective way about how the weather would impact their day perticipating in their choosen sport. It achieves this with taking into account the weather factors that will affect the specified sport, which has been selected by the user. Then it will run an algorithem that will check the parameters of the weather and produce an easy to understand rating system. This project is a student project, for the Wild Code School, which is a 5 month bootcamp in web development, it is carried out while learning React.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Technologies
+The project was built using the following packages:
+1. mui/icons-material
+2. emotion/react
+3. emotion/styled
+4. react
+5. React-router-dom
 
-## Available Scripts
+The other internal methods used while creating this project were:
+1. react context
 
-In the project directory, you can run:
+## Languages 
+The languages and frameworks used in the project were as follows:
+1. React
+2. JavaScript
+3. CSS
 
-### `npm start`
+## Launching the project 
+The project can be launched by cloning it from the GitHub repository:
+[Weather Wise](https://github.com/Billy-Night/project2-weather-wise-app)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The git clone command:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+`$ git clone <repository url>` 
 
-### `npm test`
+Then the command npm install can be used to install all the dependencies:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+`npm install`
 
-### `npm run build`
+Then the user must set up a .env file which contains the API key.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+It is also advised to add necessary details to the .gitignore file.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Now use the command npm start to run the server and launch the project.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`npm start`
 
-### `npm run eject`
+## Project Folder management
+The project is broken out into componenets, the main components in the project are under the source folder, a breakdown of the folders and files can be seen in the following section. 
+### Assets
+The assets folder contains all the images which relate to the project, they include the icons to the sports selection page and also the the images for the weather icons.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Componenets
+This folder contains all the projects components, which are shown below.
+#### Current Weather Folder
+This folder contains the  current weather component and the CSS for that component.
+#### Status Bar folder
+This folder contains the files for the rating circle which is called ProgressBar and the CSS for that component.
+#### The Current Rating File
+This file contains the content of the currentRating component to render the current rating page, it takes some variables from the MyProvider using context.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### The Utils Folder
+Contains the some of main logic for the project, including the API calls the logic to determine the rating for each sport and the sports data for each sport used when rending each selected sport.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### APP.css 
+This file contains the main css for the project, some components were extracted and given their own css file due to the growing size of the APP.css file, in the future the aim would be to reduce this file.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### APP.js 
+This file contains the main components that will be render in the project which are placed within react router for navigation throughout the project.
 
-## Learn More
+### Other Files to Consider
+There is also two hidden files in the project, the .gitignore and the .env, the .env has been explained already. But the .gitignore contains all the files that will be blocked from being uploaded to GitHub.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Rating Logic
+The rating logic was designed by using weighted percentages out of 10. The follow documentation can be found within the Drive Folder of the project :
+ [Rating Logic](https://docs.google.com/spreadsheets/d/1p70ekIo1Y9cjNWzRW7qnkRy26js3-0CaIBB37DIykLE/edit#gid=0)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The above file will show the excel used to work out the calculations of the project.
 
-### Code Splitting
+The written documentation which describes the logic for each sport can be found here: [Rating Description](https://docs.google.com/document/d/1-6jl5doi0yxx2qOCsEYJgLoKVLXTchKOUsKekyj6nxs/edit)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+The documentation shows what weather factors were taken into account for the each sport that was consider, please take into account, that one of the main benefits of this project is about reusablity and scalability, so as we continue to work on the project the sports will be adding and updated.
 
-### Analyzing the Bundle Size
+## Sports Research
+The next piece of documentation is the sports research which can be found here [Sports Research](https://docs.google.com/document/d/1MoCuNbKWR1nALxiuKG2vW8IAAUBz4IIrC84EyWFgNMc/edit)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Project Links
+The project links file contains links to all the external information gathered for the creation of the project. This is not an extensive list. It can be found here [Project Link](https://docs.google.com/document/d/1CigW9Lo96P91aW-7e1iCDInfQbjQc3KYd0_NT4gKNTw/edit)
 
-### Making a Progressive Web App
+## The API's
+The API's that were used in this project are as follows:
+1. The location API, this gets the geolocation of the city that the user has input.
+2. The weather API, this API gets the weather using the geolocation from the previous API.
+3. The air pollution API which gives the air pollution quality according to the geolocation.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The API's can be found at the following site [Open Weather Map](https://openweathermap.org/api)
+## Future development
+This project is ongoing and currently in development, we hope to add more sports and improve the recommendations for those sports.
