@@ -49,6 +49,9 @@ const MyProvider = (props) => {
     let [airPollution, setAirPollution] = useState({});
     let [airPollutionDes, setAirPollutionDes] = useState("");
 
+    //This state sets the color of the rating circle
+    // let [rateColour, setRateColour] = useState("");
+
     const navigate = useNavigate();
 
     //This handles the event change in the input for the city
@@ -62,6 +65,7 @@ const MyProvider = (props) => {
     const handleClick = () => {
         geoLocCall();
         navigate('/sport');
+        setCity("");
      };
 
     //API Call
@@ -74,7 +78,7 @@ const MyProvider = (props) => {
             setWeather(forecastData);
             setAirPollution(pollutionData);
             setApiLoaded(true);
-            setCrtWindSpeed((forecastData.current.wind_speed*3.6).toFixed(2))
+            setCrtWindSpeed((forecastData.current.wind_speed*3.6).toFixed(0))
           }
         );
       });
@@ -100,6 +104,16 @@ const MyProvider = (props) => {
       let totalRate = getCyclingStatus(weather.current.feels_like, crtWindSpeed, weather.hourly[0].pop, weather.current.uvi);
       setCyclingRating(totalRate);
     }
+
+    // const handleColorSelect = () => {
+    //     if (cyclingRating <= 3) {
+    //     setRateColour("Red");
+    //   } else if (cyclingRating > 3 && cyclingRating <= 7) {
+    //     setRateColour("yellow");
+    //   } else {
+    //     setRateColour("green");
+    //   }
+    // }
 
     //This is the method that handles the navigation to the current weather
     const handleNavCurrentWeather = () => (
