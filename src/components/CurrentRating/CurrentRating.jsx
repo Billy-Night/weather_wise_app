@@ -1,5 +1,5 @@
 //imports the useContext hook from react
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MyContext } from "../../context/MyProvider.js";
 import ProgressBar from "../StatusBar/ProgressBar";
 import "../CurrentRating/CurrentRating.css";
@@ -9,13 +9,23 @@ import "../CurrentRating/CurrentRating.css";
 const CurrentRating = () => {
   //the varible is equal to the useContext hook with the argument of MyContext, this will give us our data instead of all the everthing.
   const context = useContext(MyContext);
-
+  let [circleColor, setCircleColor] = useState("");
   // let circleColor = "green";
+
+  useEffect(() => {
+      if (context.cyclingRating <= 3) {
+        setCircleColor("Red");
+    } else if (context.cyclingRating > 3 && context.cyclingRating <= 7) {
+      setCircleColor("yellow");
+    } else {
+      setCircleColor("green");
+    }
+  }, [context.cyclingRating]);
 
   const state = {
     size: 150,
     strokeWidth: 12,
-    circleOneStroke: "green",
+    circleOneStroke: circleColor,
     circleTwoStroke: "gray",
   };
 
