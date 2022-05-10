@@ -7,7 +7,7 @@ import NavBar from "./components/NavBar.jsx";
 import About from "./components/About.jsx";
 import SelectSport from "./components/SelectSport.jsx";
 // import { useNavigate } from 'react-router-dom';
-import CurrentRating from "./components/CurrentRating.jsx";
+import CurrentRating from "./components/CurrentRating/CurrentRating.jsx";
 import CurrentWeather from "./components/CurrentWeather/CurrentWeather.jsx";
 // import Footer from "./components/Footer.jsx";
 
