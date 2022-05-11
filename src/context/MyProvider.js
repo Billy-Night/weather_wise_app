@@ -76,7 +76,7 @@ const MyProvider = (props) => {
         getWeatherAndPollution(data[0].lat, data[0].lon).then(
           ([forecastData, pollutionData]) => {
             setWeather(forecastData);
-            setAirPollution(pollutionData);
+            setAirPollution(pollutionData.list[0].main.aqi);
             setApiLoaded(true);
             setCrtWindSpeed((forecastData.current.wind_speed*3.6).toFixed(0))
           }
@@ -87,7 +87,7 @@ const MyProvider = (props) => {
     //Air Pollution Quality
     const handleAirPollution = () => {
     const qualitativeName = ["Good", "Fair", "Moderate", "Poor", "Very Poor"];
-    let AirPollutionDes = qualitativeName[(airPollution.list[0].main.aqi)-1];
+    let AirPollutionDes = qualitativeName[(airPollution)-1];
     setAirPollutionDes(AirPollutionDes);
     }
 
@@ -142,6 +142,7 @@ const MyProvider = (props) => {
             humidityImg: humidityImg,
             uvindexImg: uvindexImg,
             sportSelected: sportSelected,
+            airPollution: airPollution,
             airPollutionDes: airPollutionDes,
             crtWindSpeed: crtWindSpeed
         }} >

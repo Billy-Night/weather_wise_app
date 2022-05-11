@@ -9,6 +9,7 @@
     background-color: #2F3740;
     color: white;
     width: 80%;
+    max-width: 900px;
     margin-top: 4%;
     margin-bottom: 30%;
     border-radius: 16%;
@@ -163,29 +164,13 @@
     text-align: center;
   }
 
-  .rating-params {
-    grid-row-start: 3;
-    grid-row-end: 4;
-    grid-column-start: 3;
-    grid-column-end: 8;
-    font-size: 1.3em;
-  }
-  
-  .rating-params h2 {
-    font-size: 1.4em;
-    margin: 0px;
-  }
-  
-  .rating-params p {
-    margin: 5%;
-  }
-
   .rate-btn {
-    grid-row-start: 4;
-    grid-row-end: 5;
+    grid-row-start: 10;
+    grid-row-end: 11;
     grid-column: span 12;
     display: flex;
     justify-content: center;
+    margin-top: 2%;
     margin-bottom: 5%;
   }
   
@@ -213,4 +198,43 @@
   
   .rate-btn button:hover {
     transform: translateY(-1px);
+  }
+  .alerts {
+    grid-row-start: 3;
+    grid-row-end: 4;
+    grid-column-start: 9;
+    grid-column-end: 11;
+  }
+  .real-feel-error-heat {
+    grid-row-start: 4;
+    grid-row-end: 5;
+    grid-column-start: 9;
+    grid-column-end: 11;
+  }
+  .real-feel-error-wind {
+    grid-row-start: 5;
+    grid-row-end: 6;
+    grid-column-start: 9;
+    grid-column-end: 11;
+  }
+
+  .real-feel-error-pop {
+    grid-row-start: 6;
+    grid-row-end: 7;
+    grid-column-start: 9;
+    grid-column-end: 11;
+  }
+
+  .real-feel-error-uvi {
+    grid-row-start: 7;
+    grid-row-end: 8;
+    grid-column-start: 9;
+    grid-column-end: 11;
+  }
+  
+  .real-feel-error-pollution {
+    grid-row-start: 8;
+    grid-row-end: 9;
+    grid-column-start: 9;
+    grid-column-end: 11;
   }
