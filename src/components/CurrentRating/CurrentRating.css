@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
   .current-rating-main-container {
     display: flex;
@@ -190,7 +191,7 @@
   
   .rate-btn button {
     height: 50px;
-    font: 'Bebas Neue', cursive;
+    font: 'Bebas Neue', sans-serif;
     padding: 0.8em 1.4em;
     text-transform: uppercase;
     color: #000;
