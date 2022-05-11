@@ -16,7 +16,7 @@
   .current-rating-grid-container {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(5, auto);
+    grid-template-rows: repeat(12, auto);
   }
 
   .current-rating-grid-header {
@@ -42,8 +42,6 @@
     grid-row-start: 2;
     grid-row-end: 3;
     grid-column: span 12;
-    /* display: flex;
-    justify-content: center; */
   }
   
   .rate-circle {
@@ -59,12 +57,116 @@
     justify-content: center;
     align-items: center;
   }
+  .rating-params-header {
+    grid-row-start: 3;
+    grid-row-end: 4;
+    grid-column-start: 3;
+    grid-column-end: 8;
+  }
+
+  .rating-params-temp {
+    grid-row-start: 4;
+    grid-row-end: 5;
+    grid-column-start: 3;
+    grid-column-end: 8;
+  }
+  .rating-params-temp-img {
+    grid-row-start: 4;
+    grid-row-end: 5;
+    grid-column-start: 6;
+    grid-column-end: 8;
+    text-align: center;
+  }
+
+  .rating-params-temp-img img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .rating-params-wind {
+    grid-row-start: 5;
+    grid-row-end: 6;
+    grid-column-start: 3;
+    grid-column-end: 7;
+  }
   
+  .rating-params-wind-img {
+    grid-row-start: 5;
+    grid-row-end: 6;
+    grid-column-start: 6;
+    grid-column-end: 8;
+    text-align: center;
+  }
+
+  .rating-params-wind-img img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .rating-params-pop {
+    grid-row-start: 6;
+    grid-row-end: 7;
+    grid-column-start: 3;
+    grid-column-end: 7;
+  }
+
+  .rating-params-rain-img {
+    grid-row-start: 6;
+    grid-row-end: 7;
+    grid-column-start: 6;
+    grid-column-end: 8;
+    text-align: center;
+  }
+
+  .rating-params-rain-img img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .rating-params-uvi {
+    grid-row-start: 7;
+    grid-row-end: 8;
+    grid-column-start: 3;
+    grid-column-end: 7;
+  }
+  .rating-params-uvi-img img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .rating-params-uvi-img {
+    grid-row-start: 7;
+    grid-row-end: 8;
+    grid-column-start: 6;
+    grid-column-end: 8;
+    text-align: center;
+  }
+
+  .rating-params-air-pollution {
+    grid-row-start: 8;
+    grid-row-end: 9;
+    grid-column-start: 3;
+    grid-column-end: 7;
+  }
+
+  .rating-params-air-quality-img img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .rating-params-air-quality-img {
+    grid-row-start: 8;
+    grid-row-end: 9;
+    grid-column-start: 6;
+    grid-column-end: 8;
+    text-align: center;
+  }
+
   .rating-params {
     grid-row-start: 3;
     grid-row-end: 4;
-    grid-column: span 12;
-    text-align: center;
+    grid-column-start: 3;
+    grid-column-end: 8;
     font-size: 1.3em;
   }
   
@@ -74,7 +176,7 @@
   }
   
   .rating-params p {
-    margin: 2%;
+    margin: 5%;
   }
 
   .rate-btn {

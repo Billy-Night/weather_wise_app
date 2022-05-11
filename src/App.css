@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300&display=swap');
+
 .App {
   font-family: 'Bebas Neue', sans-serif;
   background-color: #1f2987;
@@ -110,6 +112,7 @@ color : #2f3640;
 }
 
 .about-section p {
+  font-family: 'Roboto', sans-serif;;
   font-size: 1.3em;
   margin: 2% 10% 2% 10%;
 }
