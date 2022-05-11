@@ -103,7 +103,7 @@ const CurrentRating = () => {
                 <p>Take a windproof shell</p>
               </div>
             ) : (<></>)}
-             {((context.weather.hourly[0].pop * 100).toFixed(0)) >= 70 ? (
+             {((context.weather.hourly[0].pop * 100).toFixed(0)) >= 40 ? (
               <div className="real-feel-error-pop">
                 <p>Grab a waterproof jacket</p>
               </div>
