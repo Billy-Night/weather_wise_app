@@ -46,11 +46,11 @@ const CurrentRating = () => {
                 {...state} />
             </div>
             <div className="rating-params-header">
-              <h2>The weather factors are:</h2>
+              <h2>Weather Factors</h2>
             </div>
             <div className="rating-params-temp">
               <p>
-                1. Real feel temperature is:
+                1. Real feel temperature:
                 {context.weather.current.feels_like.toFixed(0)}°C
               </p>
             </div>
@@ -59,7 +59,7 @@ const CurrentRating = () => {
             </div>
             <div className="rating-params-wind">
               <p>
-                2. Wind speed is: {context.crtWindSpeed}km/h
+                2. Wind speed: {context.crtWindSpeed}km/h
               </p>
             </div>
             <div className="rating-params-wind-img">
@@ -74,13 +74,13 @@ const CurrentRating = () => {
                 <img src={context.rainImg} alt="wind" />
             </div>
             <div className="rating-params-uvi">
-              <p>4. UV index is: {context.weather.current.uvi}</p>
+              <p>4. UV index: {context.weather.current.uvi}</p>
             </div>
             <div className="rating-params-uvi-img">
               <img src={context.uvindexImg} alt="visibility" />
             </div>
             <div className="rating-params-air-pollution">
-              <p>5. Air quality is: {context.airPollutionDes}</p>
+              <p>5. Air quality: {context.airPollutionDes}</p>
             </div>
             <div className="rating-params-air-quality-img">
               <img src={airquality} alt="visibility" />
@@ -90,6 +90,34 @@ const CurrentRating = () => {
                 Check Weather
               </button>
             </div>
+            <div className="alerts">
+              <h2>Alerts</h2>
+            </div>
+            {context.weather.current.feels_like.toFixed(0) >= 30 ? (
+              <div className="real-feel-error-heat">
+                <p>Remember to drink lots of water, it's hot.</p>
+              </div>
+            ) : (<></>)}
+            {context.crtWindSpeed >= 20 ? (
+              <div className="real-feel-error-wind">
+                <p>Take a windproof shell</p>
+              </div>
+            ) : (<></>)}
+             {((context.weather.hourly[0].pop * 100).toFixed(0)) >= 70 ? (
+              <div className="real-feel-error-pop">
+                <p>Grab a waterproof jacket</p>
+              </div>
+            ) : (<></>)}
+            {context.weather.current.uvi >= 5 ? (
+              <div className="real-feel-error-uvi">
+                <p>Wear sunscreen UVI is high</p>
+              </div>
+            ) : (<></>)}
+            {context.airPollution >= 3 ? (
+              <div className="real-feel-error-pollution">
+                <p>Maybe excercise indoors today</p>
+              </div>
+            ) : (<></>)}
             </>
         ) : (
           <div className="rating-not-loaded">
