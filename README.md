@@ -1,15 +1,39 @@
 # Weather Wise
 
-Check out the current weather conditions and see what rating the application gives to your prefered sport.
+Check out the current weather conditions and see what rating the application gives to your preferred sport.
 
 <p align="center">
   <a href="https://weatherwise.netlify.app/">Demo</a> . 
   <a href="https://github.com/Billy-Night/weather_wise_app/issues">Report Bug</a>
  </p>
 
+## Content 
+
+- [Weather Wise](#weather-wise)
+  - [Content](#content)
+  - [Introduction](#introduction)
+  - [Technologies](#technologies)
+  - [Languages](#languages)
+  - [Launching the project](#launching-the-project)
+  - [Project Folder management](#project-folder-management)
+    - [Assets](#assets)
+    - [Componenets](#componenets)
+      - [Current Weather Folder](#current-weather-folder)
+      - [Status Bar folder](#status-bar-folder)
+      - [The Current Rating File](#the-current-rating-file)
+      - [The Utils Folder](#the-utils-folder)
+    - [APP.css](#appcss)
+    - [APP.js](#appjs)
+    - [Other Files to Consider](#other-files-to-consider)
+  - [Rating Logic](#rating-logic)
+  - [Sports Research](#sports-research)
+  - [Project Links](#project-links)
+  - [The API's](#the-apis)
+  - [Future development](#future-development)
+  - [Contributions](#contributions)
 ## Introduction
 
-The weather wise application was designed to give the user the information in a fast and affective way about how the weather would impact their day perticipating in their choosen sport. It achieves this with taking into account the weather factors that will affect the specified sport, which has been selected by the user. Then it will run an algorithem that will check the parameters of the weather and produce an easy to understand rating system. This project is a student project, for the Wild Code School, which is a 5 month bootcamp in web development, it is carried out while learning React.
+The weather wise application was designed to give the user the information in a fast and affective way about how the weather would impact their day participating in their selected sport. It achieves this with taking into account the weather factors that will affect the specified sport, which has been selected by the user. Then it will run an algorithm that will check the parameters of the weather and produce an easy to understand rating system. This project is a student project, for the Wild Code School, which is a 5 month bootcamp in web development, it is carried out while learning React.
 
 ## Technologies
 The project was built using the following packages:
