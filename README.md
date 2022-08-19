@@ -15,6 +15,7 @@ Check out the current weather conditions and see what rating the application giv
   - [Technologies](#technologies)
   - [Languages](#languages)
   - [Launching the project](#launching-the-project)
+  - [Deployment](#deployment)
   - [Project Folder management](#project-folder-management)
     - [Assets](#assets)
     - [Componenets](#componenets)
@@ -71,6 +72,12 @@ It is also advised to add necessary details to the .gitignore file.
 Now use the command npm start to run the server and launch the project.
 
 `npm start`
+
+## Deployment
+
+The project is deployed using Netlify and is fully operational.
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/cf0a40ce-7176-4bf2-90f8-7e6b37712d1d/deploy-status)](https://app.netlify.com/sites/weatherwise/deploys)
 
 ## Project Folder management
 The project is broken out into componenets, the main components in the project are under the source folder, a breakdown of the folders and files can be seen in the following section. 
