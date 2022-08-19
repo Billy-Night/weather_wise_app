@@ -1,4 +1,14 @@
 # Weather Wise
+
+Check out the current weather conditions and see what rating the application gives to your prefered sport.
+
+<p align="center">
+  <a href="https://weatherwise.netlify.app/">Demo</a> . 
+  <a href="https://github.com/Billy-Night/weather_wise_app/issues">Report Bug</a>
+ </p>
+
+## Introduction
+
 The weather wise application was designed to give the user the information in a fast and affective way about how the weather would impact their day perticipating in their choosen sport. It achieves this with taking into account the weather factors that will affect the specified sport, which has been selected by the user. Then it will run an algorithem that will check the parameters of the weather and produce an easy to understand rating system. This project is a student project, for the Wild Code School, which is a 5 month bootcamp in web development, it is carried out while learning React.
 
 ## Technologies
@@ -89,3 +99,8 @@ The API's that were used in this project are as follows:
 The API's can be found at the following site [Open Weather Map](https://openweathermap.org/api)
 ## Future development
 This project is ongoing and currently in development, we hope to add more sports and improve the recommendations for those sports.
+
+## Contributions
+Please feel free to contact me if you have any questions or recommendations
+
+[<img src='https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/github.svg' alt='github' height='40'>](https://github.com/Billy-Night)  [<img src='https://static-exp1.licdn.com/sc/h/9wzc6pgtn06j7dubaufd5wbwv' alt='linkedin' height='40'>](https://www.linkedin.com/in/billynightingale)
