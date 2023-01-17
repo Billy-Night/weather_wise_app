@@ -7,7 +7,7 @@ import airquality from "../../assets/airquality.png";
 import heat from "../../assets/heat.png";
 
 
-//changed to curly brackets, because there will be a return
+
 const CurrentRating = () => {
   //the varible is equal to the useContext hook with the argument of MyContext, this will give us our data instead of all the everthing.
   const context = useContext(MyContext);
@@ -115,11 +115,19 @@ const CurrentRating = () => {
             ) : (<></>)}
             {context.airPollution >= 3 ? (
               <div className="real-feel-error-pollution">
-                <p>Maybe excercise indoors today</p>
+                <p>Maybe exercise indoors today</p>
               </div>
             ) : (<></>)}
             </>
-        ) : (
+        ) : 
+        context.cyclingRating < 0 ? 
+        (
+          <div className="rating-not-loaded">
+            <h3>WOW it's wild out there</h3>
+            <p>Sorry we don't recommend you exercise outside today, try another location to check out our rating</p>
+          </div>
+        ) :
+        (
           <div className="rating-not-loaded">
             <h3>The rating is not loaded</h3>
             <p>Please check you have input a location</p>

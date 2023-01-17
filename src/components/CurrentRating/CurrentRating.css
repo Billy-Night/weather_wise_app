@@ -190,9 +190,9 @@
   }
   
   .rate-btn button:hover {
-    background-color: #b8b81e;
-    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
-    color: #fff;
+    background-color: #516F73;
+    box-shadow: 0px 15px 20px rgba(139, 145, 143, 0.4);
+    color: white;
     transform: translateY(-7px);
   }
   
