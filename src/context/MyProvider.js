@@ -26,8 +26,11 @@ const MyProvider = (props) => {
   let [city, setCity] = useState("");
   //This state saves the data from the geolocation API call
   let [location, setLocation] = useState({});
-  //This state shows when the city has been loaded and can be used to display informtaion to the user.
+  //This state shows when the city has been loaded and can be used to display information to the user.
   let [showCity, setShowCity] = useState(false);
+
+  // If there is a error loading the city from user input
+  let [cityError, setCityError] = useState(false);
 
   //This state saves the data from the weather API call
   let [weather, setWeather] = useState({});
@@ -62,26 +65,41 @@ const MyProvider = (props) => {
 
   //This handles the click from the location search
   //Todo change name to something more unique
-  const handleClick = () => {
-    geoLocCall();
-    navigate("/sport");
-    setCity("");
+  const handleClick = async () => {
+    try {
+      await geoLocCall();
+      navigate("/sport");
+      setCity("");
+      setCityError(false);
+    } catch (err) {
+      console.log(`This is from the handle click fn: ${err.message}`);
+      setCityError(true);
+      setCity("");
+    }
   };
 
   //API Call
-  const geoLocCall = () => {
-    getCityLoc(city).then((data) => {
+  const geoLocCall = async () => {
+    try {
+      const data = await getCityLoc(city);
+      if (data.length === 0)
+        throw new Error("There is a problem locating the city");
       setLocation(data);
       setShowCity(true);
-      getWeatherAndPollution(data[0].lat, data[0].lon).then(
-        ([forecastData, pollutionData]) => {
-          setWeather(forecastData);
-          setAirPollution(pollutionData.list[0].main.aqi);
-          setApiLoaded(true);
-          setCrtWindSpeed((forecastData.current.wind_speed * 3.6).toFixed(0));
-        }
+      const [forecastData, pollutionData] = await getWeatherAndPollution(
+        data[0].lat,
+        data[0].lon
       );
-    });
+      if (forecastData === undefined || pollutionData === undefined)
+        throw new Error("Problem with getting weather forecast and pollution");
+      setWeather(forecastData);
+      setAirPollution(pollutionData.list[0].main.aqi);
+      setApiLoaded(true);
+      setCrtWindSpeed((forecastData.current.wind_speed * 3.6).toFixed(0));
+    } catch (err) {
+      //console.error(`There is an issue with the API call: ${err.message}`);
+      throw new Error(err.message);
+    }
   };
 
   //Air Pollution Quality
@@ -148,6 +166,7 @@ const MyProvider = (props) => {
         airPollution: airPollution,
         airPollutionDes: airPollutionDes,
         crtWindSpeed: crtWindSpeed,
+        cityError: cityError,
       }}
     >
       {props.children}
