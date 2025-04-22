@@ -27,13 +27,17 @@ export const useWeather = () => {
   return context;
 };
 
-export const WeatherProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const WeatherProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const { location } = useLocation();
   const navigate = useNavigate();
-  
+
   const [weather, setWeather] = useState<Weather | null>(null);
   const [airPollution, setAirPollution] = useState<number | null>(null);
-  const [airPollutionDes, setAirPollutionDes] = useState<AirQualityDescription | ''>('');
+  const [airPollutionDes, setAirPollutionDes] = useState<
+    AirQualityDescription | ''
+  >('');
   const [cyclingRating, setCyclingRating] = useState<number | null>(null);
   const [windSpeedKmh, setWindSpeedKmh] = useState(0);
   const [sportSelected, setSportSelected] = useState('');
@@ -44,18 +48,20 @@ export const WeatherProvider: React.FC<{ children: React.ReactNode }> = ({ child
       if (location) {
         try {
           setApiLoaded(false);
-          const [forecastData, pollutionData] = await getWeatherAndPollution(
+          const [forecastData, pollutionData]: [Weather, AirPollution] = await getWeatherAndPollution(
             location.lat,
             location.lon
           );
-          
+
           if (!forecastData || !pollutionData?.list?.[0]?.main?.aqi) {
             throw new Error('Invalid weather or pollution data received');
           }
 
           setWeather(forecastData);
           setAirPollution(pollutionData.list[0].main.aqi);
-          setWindSpeedKmh(Number((forecastData.current.wind_speed * 3.6).toFixed(0)));
+          setWindSpeedKmh(
+            Number((forecastData.current.wind_speed * 3.6).toFixed(0))
+          );
           setApiLoaded(true);
         } catch (err) {
           console.error('Error fetching weather data:', err);
@@ -72,14 +78,20 @@ export const WeatherProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
   const updateAirPollutionDescription = () => {
     if (airPollution === null) return;
-    const qualitativeName: AirQualityDescription[] = ['Good', 'Fair', 'Moderate', 'Poor', 'Very Poor'];
+    const qualitativeName: AirQualityDescription[] = [
+      'Good',
+      'Fair',
+      'Moderate',
+      'Poor',
+      'Very Poor',
+    ];
     setAirPollutionDes(qualitativeName[airPollution - 1]);
   };
 
   const selectSport = (sport: string) => {
     setSportSelected(sport);
     updateAirPollutionDescription();
-    
+
     if (weather) {
       try {
         const totalRate = getCyclingStatus(
@@ -94,7 +106,7 @@ export const WeatherProvider: React.FC<{ children: React.ReactNode }> = ({ child
         setCyclingRating(null);
       }
     }
-    
+
     navigate('/rating');
   };
 
